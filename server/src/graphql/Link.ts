@@ -1,5 +1,7 @@
 import { extendType, nonNull, objectType, stringArg } from 'nexus';
 import { NexusGenObjects } from '../../nexus-typegen';
+import { getLatestVersion } from '../RiotAPI/DataDragon/getLatestVersion';
+import { getChampions } from '../RiotAPI/DataDragon/getChampions';
 
 export const Link = objectType({
 	name: 'Link', // 1
@@ -20,6 +22,7 @@ export const LinkQuery = extendType({
 			type: 'Link',
 			resolve(parent, args, context, info) {
 				// 4
+				getChampions().then((response: any) => {});
 				return context.prisma.link.findMany();
 			},
 		});
