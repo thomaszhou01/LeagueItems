@@ -34,3 +34,10 @@ model User {
   name  String?
   posts Post[]
 }
+
+model Link {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime    @default(now())  // 5
+  description String
+  url         String
+}
