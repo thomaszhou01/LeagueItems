@@ -20,6 +20,13 @@ function App() {
 	return (
 		<div>
 			<h1>SpaceX Launches</h1>
+			<img
+				alt={'Orianna'}
+				src={
+					'http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/Aatrox.png'
+				}
+			/>
+
 			<ul>
 				{data.feed.map((feed: any) => (
 					<li key={feed.url}>{feed.description}</li>

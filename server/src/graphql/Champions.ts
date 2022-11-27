@@ -3,36 +3,40 @@ import { NexusGenObjects } from '../../nexus-typegen';
 import { getLatestVersion } from '../RiotAPI/DataDragon/getLatestVersion';
 import { getChampions } from '../RiotAPI/DataDragon/getChampions';
 
-export const Link = objectType({
-	name: 'Link', // 1
+export const Champion = objectType({
+	name: 'Champion',
 	definition(t) {
-		// 2
-		t.nonNull.string('id'); // 3
-		t.nonNull.string('description'); // 4
-		t.nonNull.string('url'); // 5
+		t.nonNull.string('version');
+		t.nonNull.string('id');
+		t.nonNull.string('key');
+		t.nonNull.string('name');
+		t.nonNull.string('title');
+		t.nonNull.string('blurb');
+		t.list.string('tags');
+		t.nonNull.string('partype');
 	},
 });
 
-export const LinkQuery = extendType({
-	// 2
-	type: 'Query',
-	definition(t) {
-		t.nonNull.list.nonNull.field('feed', {
-			// 3
-			type: 'Link',
-			resolve(parent, args, context, info) {
-				// 4
-				return context.prisma.link.findMany();
-			},
-		});
-	},
-});
+// export const ChampionQuery = extendType({
+// 	// 2
+// 	type: 'Query',
+// 	definition(t) {
+// 		t.nonNull.list.nonNull.field('feeding', {
+// 			// 3
+// 			type: 'Champion',
+// 			resolve(parent, args, context, info) {
+// 				// 4
+// 				return context.prisma.link.findMany();
+// 			},
+// 		});
+// 	},
+// });
 
-export const LinkMutation = extendType({
+export const ChampionMutation = extendType({
 	// 1
 	type: 'Mutation',
 	definition(t) {
-		t.nonNull.field('post', {
+		t.nonNull.field('posting', {
 			// 2
 			type: 'Link',
 			args: {

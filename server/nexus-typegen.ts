@@ -28,6 +28,16 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Champion: { // root type
+    blurb: string; // String!
+    id: string; // String!
+    key: string; // String!
+    name: string; // String!
+    partype: string; // String!
+    tags?: Array<string | null> | null; // [String]
+    title: string; // String!
+    version: string; // String!
+  }
   Link: { // root type
     description: string; // String!
     id: string; // String!
@@ -48,13 +58,25 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Champion: { // field return type
+    blurb: string; // String!
+    id: string; // String!
+    key: string; // String!
+    name: string; // String!
+    partype: string; // String!
+    tags: Array<string | null> | null; // [String]
+    title: string; // String!
+    version: string; // String!
+  }
   Link: { // field return type
     description: string; // String!
     id: string; // String!
     url: string; // String!
   }
   Mutation: { // field return type
+    addChamp: string; // String!
     post: NexusGenRootTypes['Link']; // Link!
+    posting: NexusGenRootTypes['Link']; // Link!
   }
   Query: { // field return type
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
@@ -62,13 +84,25 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Champion: { // field return type name
+    blurb: 'String'
+    id: 'String'
+    key: 'String'
+    name: 'String'
+    partype: 'String'
+    tags: 'String'
+    title: 'String'
+    version: 'String'
+  }
   Link: { // field return type name
     description: 'String'
     id: 'String'
     url: 'String'
   }
   Mutation: { // field return type name
+    addChamp: 'String'
     post: 'Link'
+    posting: 'Link'
   }
   Query: { // field return type name
     feed: 'Link'
@@ -78,6 +112,10 @@ export interface NexusGenFieldTypeNames {
 export interface NexusGenArgTypes {
   Mutation: {
     post: { // args
+      description: string; // String!
+      url: string; // String!
+    }
+    posting: { // args
       description: string; // String!
       url: string; // String!
     }
