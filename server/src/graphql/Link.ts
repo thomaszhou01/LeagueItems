@@ -58,16 +58,6 @@ export const LinkMutation = extendType({
 			type: 'String',
 
 			resolve(parent, args, context) {
-				getChampions().then((response: any) => {
-					// for (var champ in response['data']['data']) {
-					// 	console.log(champ);
-					// }
-
-					const newChamp = context.prisma.champion.create({
-						// 2
-						data: response['Aatrox'],
-					});
-				});
 				return 'newLink';
 			},
 		});

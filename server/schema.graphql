@@ -3,14 +3,50 @@
 
 
 type Champion {
-  blurb: String!
   id: String!
   key: String!
   name: String!
+  objectID: String!
   partype: String!
-  tags: [String]
+  stats: ChampionStats
+  tags: [String]!
   title: String!
   version: String!
+}
+
+type ChampionStats {
+  armor: Float!
+  armorperlevel: Float!
+  attackdamage: Float!
+  attackdamageperlevel: Float!
+  attackrange: Float!
+  attackspeed: Float!
+  attackspeedperlevel: Float!
+  champion: Champion
+  championId: String!
+  crit: Float!
+  critperlevel: Float!
+  hp: Float!
+  hpperlevel: Float!
+  hpregen: Float!
+  hpregenperlevel: Float!
+  movespeed: Float!
+  mp: Float!
+  mpperlevel: Float!
+  spellblock: Float!
+  spellblockperlevel: Float!
+}
+
+type Item {
+  description: [String]!
+  from: [String]!
+  goldTotalCost: String!
+  id: String!
+  into: [String]!
+  name: String!
+  objectID: String!
+  plaintext: String!
+  tags: [String]!
 }
 
 type Link {
@@ -26,5 +62,7 @@ type Mutation {
 }
 
 type Query {
+  champion: [Champion!]!
   feed: [Link!]!
+  item: [Item!]!
 }

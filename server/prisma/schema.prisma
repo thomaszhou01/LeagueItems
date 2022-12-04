@@ -37,57 +37,58 @@ model User {
 }
 
 model Link {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt   DateTime    @default(now())  // 5
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime @default(now()) // 5
   description String
   url         String
 }
 
-model Champion{
-  objectID String @id @default(auto()) @map("_id") @db.ObjectId
-  version String
-  id String 
-  key String 
-  name String @unique
-  title String
-  tags String[]
-  partype String
-  stats ChampionStats?
-}
-model ChampionStats{
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  hp Float
-  hpperlevel Float
-  mp Float
-  mpperlevel Float
-  movespeed Float
-  armor Float
-  armorperlevel Float
-  spellblock Float
-  spellblockperlevel Float
-  attackrange Float
-  hpregen Float
-  hpregenperlevel Float
-  mpregen Float
-  mpregenperlevel Float
-  crit Float
-  critperlevel Float
-  attackdamage Float
-  attackdamageperlevel Float
-  attackspeedperlevel Float
-  attackspeed Float
-  champion   Champion?  @relation(fields: [championId], references: [objectID])
-  championId String?    @db.ObjectId @unique
+model Champion {
+  objectID String         @id @default(auto()) @map("_id") @db.ObjectId
+  version  String
+  id       String
+  key      String
+  name     String         @unique
+  title    String
+  tags     String[]
+  partype  String
+  stats    ChampionStats?
 }
 
-model Item{
-  objectID String @id @default(auto()) @map("_id") @db.ObjectId
-  id String @unique
-  name String
-  description String[]
-  plaintext String
-  into String[]
-  from String[]
+model ChampionStats {
+  id                   String    @id @default(auto()) @map("_id") @db.ObjectId
+  hp                   Float
+  hpperlevel           Float
+  mp                   Float
+  mpperlevel           Float
+  movespeed            Float
+  armor                Float
+  armorperlevel        Float
+  spellblock           Float
+  spellblockperlevel   Float
+  attackrange          Float
+  hpregen              Float
+  hpregenperlevel      Float
+  mpregen              Float
+  mpregenperlevel      Float
+  crit                 Float
+  critperlevel         Float
+  attackdamage         Float
+  attackdamageperlevel Float
+  attackspeedperlevel  Float
+  attackspeed          Float
+  champion             Champion? @relation(fields: [championId], references: [objectID])
+  championId           String?   @unique @db.ObjectId
+}
+
+model Item {
+  objectID      String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @unique
+  name          String
+  description   String[]
+  plaintext     String
+  into          String[]
+  from          String[]
   goldTotalCost Int
-  tags String[]
+  tags          String[]
 }

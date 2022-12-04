@@ -29,14 +29,46 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Champion: { // root type
-    blurb: string; // String!
     id: string; // String!
     key: string; // String!
     name: string; // String!
+    objectID: string; // String!
     partype: string; // String!
-    tags?: Array<string | null> | null; // [String]
+    tags: Array<string | null>; // [String]!
     title: string; // String!
     version: string; // String!
+  }
+  ChampionStats: { // root type
+    armor: number; // Float!
+    armorperlevel: number; // Float!
+    attackdamage: number; // Float!
+    attackdamageperlevel: number; // Float!
+    attackrange: number; // Float!
+    attackspeed: number; // Float!
+    attackspeedperlevel: number; // Float!
+    championId: string; // String!
+    crit: number; // Float!
+    critperlevel: number; // Float!
+    hp: number; // Float!
+    hpperlevel: number; // Float!
+    hpregen: number; // Float!
+    hpregenperlevel: number; // Float!
+    movespeed: number; // Float!
+    mp: number; // Float!
+    mpperlevel: number; // Float!
+    spellblock: number; // Float!
+    spellblockperlevel: number; // Float!
+  }
+  Item: { // root type
+    description: Array<string | null>; // [String]!
+    from: Array<string | null>; // [String]!
+    goldTotalCost: string; // String!
+    id: string; // String!
+    into: Array<string | null>; // [String]!
+    name: string; // String!
+    objectID: string; // String!
+    plaintext: string; // String!
+    tags: Array<string | null>; // [String]!
   }
   Link: { // root type
     description: string; // String!
@@ -59,14 +91,48 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Champion: { // field return type
-    blurb: string; // String!
     id: string; // String!
     key: string; // String!
     name: string; // String!
+    objectID: string; // String!
     partype: string; // String!
-    tags: Array<string | null> | null; // [String]
+    stats: NexusGenRootTypes['ChampionStats'] | null; // ChampionStats
+    tags: Array<string | null>; // [String]!
     title: string; // String!
     version: string; // String!
+  }
+  ChampionStats: { // field return type
+    armor: number; // Float!
+    armorperlevel: number; // Float!
+    attackdamage: number; // Float!
+    attackdamageperlevel: number; // Float!
+    attackrange: number; // Float!
+    attackspeed: number; // Float!
+    attackspeedperlevel: number; // Float!
+    champion: NexusGenRootTypes['Champion'] | null; // Champion
+    championId: string; // String!
+    crit: number; // Float!
+    critperlevel: number; // Float!
+    hp: number; // Float!
+    hpperlevel: number; // Float!
+    hpregen: number; // Float!
+    hpregenperlevel: number; // Float!
+    movespeed: number; // Float!
+    mp: number; // Float!
+    mpperlevel: number; // Float!
+    spellblock: number; // Float!
+    spellblockperlevel: number; // Float!
+  }
+  Item: { // field return type
+    description: Array<string | null>; // [String]!
+    from: Array<string | null>; // [String]!
+    goldTotalCost: string; // String!
+    id: string; // String!
+    into: Array<string | null>; // [String]!
+    name: string; // String!
+    objectID: string; // String!
+    plaintext: string; // String!
+    tags: Array<string | null>; // [String]!
   }
   Link: { // field return type
     description: string; // String!
@@ -79,20 +145,56 @@ export interface NexusGenFieldTypes {
     posting: NexusGenRootTypes['Link']; // Link!
   }
   Query: { // field return type
+    champion: NexusGenRootTypes['Champion'][]; // [Champion!]!
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
+    item: NexusGenRootTypes['Item'][]; // [Item!]!
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Champion: { // field return type name
-    blurb: 'String'
     id: 'String'
     key: 'String'
     name: 'String'
+    objectID: 'String'
     partype: 'String'
+    stats: 'ChampionStats'
     tags: 'String'
     title: 'String'
     version: 'String'
+  }
+  ChampionStats: { // field return type name
+    armor: 'Float'
+    armorperlevel: 'Float'
+    attackdamage: 'Float'
+    attackdamageperlevel: 'Float'
+    attackrange: 'Float'
+    attackspeed: 'Float'
+    attackspeedperlevel: 'Float'
+    champion: 'Champion'
+    championId: 'String'
+    crit: 'Float'
+    critperlevel: 'Float'
+    hp: 'Float'
+    hpperlevel: 'Float'
+    hpregen: 'Float'
+    hpregenperlevel: 'Float'
+    movespeed: 'Float'
+    mp: 'Float'
+    mpperlevel: 'Float'
+    spellblock: 'Float'
+    spellblockperlevel: 'Float'
+  }
+  Item: { // field return type name
+    description: 'String'
+    from: 'String'
+    goldTotalCost: 'String'
+    id: 'String'
+    into: 'String'
+    name: 'String'
+    objectID: 'String'
+    plaintext: 'String'
+    tags: 'String'
   }
   Link: { // field return type name
     description: 'String'
@@ -105,7 +207,9 @@ export interface NexusGenFieldTypeNames {
     posting: 'Link'
   }
   Query: { // field return type name
+    champion: 'Champion'
     feed: 'Link'
+    item: 'Item'
   }
 }
 
