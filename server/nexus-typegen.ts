@@ -3,7 +3,7 @@
  * Do not make changes to this file directly
  */
 
-
+import type * as prisma from "./node_modules/.prisma/client/index"
 import type { Context } from "./src/context"
 
 
@@ -28,53 +28,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Champion: { // root type
-    id: string; // String!
-    key: string; // String!
-    name: string; // String!
-    objectID: string; // String!
-    partype: string; // String!
-    tags: Array<string | null>; // [String]!
-    title: string; // String!
-    version: string; // String!
-  }
-  ChampionStats: { // root type
-    armor: number; // Float!
-    armorperlevel: number; // Float!
-    attackdamage: number; // Float!
-    attackdamageperlevel: number; // Float!
-    attackrange: number; // Float!
-    attackspeed: number; // Float!
-    attackspeedperlevel: number; // Float!
-    championId: string; // String!
-    crit: number; // Float!
-    critperlevel: number; // Float!
-    hp: number; // Float!
-    hpperlevel: number; // Float!
-    hpregen: number; // Float!
-    hpregenperlevel: number; // Float!
-    movespeed: number; // Float!
-    mp: number; // Float!
-    mpperlevel: number; // Float!
-    spellblock: number; // Float!
-    spellblockperlevel: number; // Float!
-  }
-  Item: { // root type
-    description: Array<string | null>; // [String]!
-    from: Array<string | null>; // [String]!
-    goldTotalCost: string; // String!
-    id: string; // String!
-    into: Array<string | null>; // [String]!
-    name: string; // String!
-    objectID: string; // String!
-    plaintext: string; // String!
-    tags: Array<string | null>; // [String]!
-  }
-  Link: { // root type
-    description: string; // String!
-    id: string; // String!
-    url: string; // String!
-  }
+  Champion: prisma.Champion;
+  ChampionStats: prisma.ChampionStats;
+  Item: prisma.Item;
+  Link: prisma.Link;
   Mutation: {};
   Query: {};
 }
@@ -92,6 +49,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Champion: { // field return type
     id: string; // String!
+    imageURL: string; // String!
     key: string; // String!
     name: string; // String!
     objectID: string; // String!
@@ -110,7 +68,7 @@ export interface NexusGenFieldTypes {
     attackspeed: number; // Float!
     attackspeedperlevel: number; // Float!
     champion: NexusGenRootTypes['Champion'] | null; // Champion
-    championId: string; // String!
+    championId: string | null; // String
     crit: number; // Float!
     critperlevel: number; // Float!
     hp: number; // Float!
@@ -142,18 +100,20 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addChamp: string; // String!
     post: NexusGenRootTypes['Link']; // Link!
-    posting: NexusGenRootTypes['Link']; // Link!
   }
   Query: { // field return type
-    champion: NexusGenRootTypes['Champion'][]; // [Champion!]!
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
-    item: NexusGenRootTypes['Item'][]; // [Item!]!
+    getAllChampions: NexusGenRootTypes['Champion'][]; // [Champion!]!
+    getAllItems: NexusGenRootTypes['Item'][]; // [Item!]!
+    getSpecificChampions: NexusGenRootTypes['Champion'] | null; // Champion
+    getSpecificItems: NexusGenRootTypes['Item'] | null; // Item
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Champion: { // field return type name
     id: 'String'
+    imageURL: 'String'
     key: 'String'
     name: 'String'
     objectID: 'String'
@@ -204,12 +164,13 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addChamp: 'String'
     post: 'Link'
-    posting: 'Link'
   }
   Query: { // field return type name
-    champion: 'Champion'
     feed: 'Link'
-    item: 'Item'
+    getAllChampions: 'Champion'
+    getAllItems: 'Item'
+    getSpecificChampions: 'Champion'
+    getSpecificItems: 'Item'
   }
 }
 
@@ -219,9 +180,13 @@ export interface NexusGenArgTypes {
       description: string; // String!
       url: string; // String!
     }
-    posting: { // args
-      description: string; // String!
-      url: string; // String!
+  }
+  Query: {
+    getSpecificChampions: { // args
+      championName: string; // String!
+    }
+    getSpecificItems: { // args
+      itemName: string; // String!
     }
   }
 }

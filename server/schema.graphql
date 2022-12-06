@@ -4,6 +4,7 @@
 
 type Champion {
   id: String!
+  imageURL: String!
   key: String!
   name: String!
   objectID: String!
@@ -23,7 +24,7 @@ type ChampionStats {
   attackspeed: Float!
   attackspeedperlevel: Float!
   champion: Champion
-  championId: String!
+  championId: String
   crit: Float!
   critperlevel: Float!
   hp: Float!
@@ -58,11 +59,12 @@ type Link {
 type Mutation {
   addChamp: String!
   post(description: String!, url: String!): Link!
-  posting(description: String!, url: String!): Link!
 }
 
 type Query {
-  champion: [Champion!]!
   feed: [Link!]!
-  item: [Item!]!
+  getAllChampions: [Champion!]!
+  getAllItems: [Item!]!
+  getSpecificChampions(championName: String!): Champion
+  getSpecificItems(itemName: String!): Item
 }

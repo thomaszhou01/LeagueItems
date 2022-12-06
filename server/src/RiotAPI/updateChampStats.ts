@@ -17,6 +17,12 @@ export async function updateChampionLists(prismaClient: any) {
 					title: champion['title'],
 					tags: champion['tags'],
 					partype: champion['partype'],
+					imageURL:
+						'http://ddragon.leagueoflegends.com/cdn/' +
+						champion['version'] +
+						'/img/champion/' +
+						champion['id'] +
+						'.png',
 					stats: {
 						create: champion['stats'],
 					},
@@ -29,6 +35,12 @@ export async function updateChampionLists(prismaClient: any) {
 					title: champion['title'],
 					tags: champion['tags'],
 					partype: champion['partype'],
+					imageURL:
+						'http://ddragon.leagueoflegends.com/cdn/' +
+						champion['version'] +
+						'/img/champion/' +
+						champion['id'] +
+						'.png',
 					stats: {
 						create: champion['stats'],
 					},

@@ -3,26 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 const FILMS_QUERY = gql`
 	query {
-		getAllItems {
-			objectID
+		feed {
 			id
-			name
+			url
 			description
-			plaintext
-			into
-			from
-			goldTotalCost
-			tags
 		}
 	}
 `;
 
-function Main() {
+function DisplayChampions() {
 	const { data, loading, error } = useQuery(FILMS_QUERY);
+	console.log(data);
 	if (loading) return <pre>"Loading..."</pre>;
 	if (error) return <pre>{error.message}</pre>;
-	console.log(data);
-	console.log(data['getAllItems']);
 	return (
 		<div>
 			<h1>League Item Calculator</h1>
@@ -34,12 +27,12 @@ function Main() {
 			/>
 
 			<ul>
-				{data.getAllItems.map((feed: any) => (
-					<li key={feed.objectID}>{feed.name}</li>
+				{data.feed.map((feed: any) => (
+					<li key={feed.url}>{feed.description}</li>
 				))}
 			</ul>
 		</div>
 	);
 }
 
-export default Main;
+export default DisplayChampions;

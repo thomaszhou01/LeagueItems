@@ -12,4 +12,12 @@ export const schema = makeSchema({
 		module: join(process.cwd(), './src/context.ts'), // 1
 		export: 'Context', // 2
 	},
+	sourceTypes: {
+		modules: [
+			{
+				module: require.resolve('.prisma/client/index.d.ts'),
+				alias: 'prisma',
+			},
+		],
+	},
 });

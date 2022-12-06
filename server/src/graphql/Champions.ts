@@ -14,6 +14,7 @@ export const Champion = objectType({
 		t.nonNull.string('title');
 		t.nonNull.list.string('tags');
 		t.nonNull.string('partype');
+		t.nonNull.string('imageURL');
 		t.field('stats', {
 			type: 'ChampionStats',
 			resolve(parent, args, context) {
@@ -46,7 +47,7 @@ export const ChampionStats = objectType({
 		t.nonNull.float('attackdamageperlevel');
 		t.nonNull.float('attackspeedperlevel');
 		t.nonNull.float('attackspeed');
-		t.nonNull.string('championId');
+		t.string('championId');
 		t.field('champion', {
 			type: 'Champion',
 			resolve(parent, args, context) {
@@ -62,58 +63,23 @@ export const ChampionQuery = extendType({
 	// 2
 	type: 'Query',
 	definition(t) {
-		t.nonNull.list.nonNull.field('champion', {
-			// 3
+		t.nonNull.list.nonNull.field('getAllChampions', {
 			type: 'Champion',
 			resolve(parent, args, context, info) {
-				// 4
 				return context.prisma.champion.findMany();
 			},
 		});
-	},
-});
 
-export const ChampionMutation = extendType({
-	// 1
-	type: 'Mutation',
-	definition(t) {
-		t.nonNull.field('posting', {
-			// 2
-			type: 'Link',
+		t.field('getSpecificChampions', {
+			// 3
+			type: 'Champion',
 			args: {
-				// 3
-				description: nonNull(stringArg()),
-				url: nonNull(stringArg()),
+				championName: nonNull(stringArg()),
 			},
-
-			resolve(parent, args, context) {
-				const newLink = context.prisma.link.create({
-					// 2
-					data: {
-						description: args.description,
-						url: args.url,
-					},
+			resolve(parent, args, context, info) {
+				return context.prisma.champion.findUnique({
+					where: { name: args.championName },
 				});
-				return newLink;
-			},
-		});
-
-		t.nonNull.field('addChamp', {
-			// 2
-			type: 'String',
-
-			resolve(parent, args, context) {
-				getChampions().then((response: any) => {
-					// for (var champ in response['data']['data']) {
-					// 	console.log(champ);
-					// }
-
-					const newChamp = context.prisma.champion.create({
-						// 2
-						data: response['Aatrox'],
-					});
-				});
-				return 'newLink';
 			},
 		});
 	},

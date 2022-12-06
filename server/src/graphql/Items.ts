@@ -22,12 +22,25 @@ export const ItemQuery = extendType({
 	// 2
 	type: 'Query',
 	definition(t) {
-		t.nonNull.list.nonNull.field('item', {
+		t.nonNull.list.nonNull.field('getAllItems', {
 			// 3
 			type: 'Item',
 			resolve(parent, args, context, info) {
 				// 4
 				return context.prisma.item.findMany();
+			},
+		});
+
+		t.field('getSpecificItems', {
+			// 3
+			type: 'Item',
+			args: {
+				itemName: nonNull(stringArg()),
+			},
+			resolve(parent, args, context, info) {
+				return context.prisma.item.findUnique({
+					where: { id: args.itemName },
+				});
 			},
 		});
 	},

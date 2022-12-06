@@ -36,42 +36,96 @@ function filterDescription(description: String) {
 }
 
 async function main(prismaClient: any) {
+	// await prismaClient.$connect();
+	// getItems().then(async (response: any) => {
+	// 	for (var itemNum in response) {
+	// 		const item = response[itemNum];
+	// 		if (!item['gold']['purchasable']) {
+	// 			continue;
+	// 		}
+	// 		await prismaClient.item.upsert({
+	// 			where: {
+	// 				id: itemNum,
+	// 			},
+	// 			update: {
+	// 				id: itemNum,
+	// 				name: item['name'],
+	// 				description: filterDescription(item['description']),
+	// 				plaintext: item['plaintext'],
+	// 				into: item['into'],
+	// 				from: item['from'],
+	// 				goldTotalCost: item['gold']['total'],
+	// 				tags: item['tags'],
+	// 			},
+	// 			create: {
+	// 				id: itemNum,
+	// 				name: item['name'],
+	// 				description: filterDescription(item['description']),
+	// 				plaintext: item['plaintext'],
+	// 				into: item['into'],
+	// 				from: item['from'],
+	// 				goldTotalCost: item['gold']['total'],
+	// 				tags: item['tags'],
+	// 			},
+	// 		});
+	// 	}
+	// });
+
+	// const allUsers = await prismaClient.item.findMany();
+	// console.dir(allUsers, { depth: null });
 	await prismaClient.$connect();
-	getItems().then(async (response: any) => {
-		for (var itemNum in response) {
-			const item = response[itemNum];
-			if (!item['gold']['purchasable']) {
-				continue;
-			}
-			await prismaClient.item.upsert({
+	getChampions().then(async (response: any) => {
+		for (var champ in response) {
+			const champion: any = response[champ];
+			await prismaClient.champion.upsert({
 				where: {
-					id: itemNum,
+					name: champion['name'],
 				},
 				update: {
-					id: itemNum,
-					name: item['name'],
-					description: filterDescription(item['description']),
-					plaintext: item['plaintext'],
-					into: item['into'],
-					from: item['from'],
-					goldTotalCost: item['gold']['total'],
-					tags: item['tags'],
+					version: champion['version'],
+					id: champion['id'],
+					key: champion['key'],
+					name: champion['name'],
+					title: champion['title'],
+					tags: champion['tags'],
+					partype: champion['partype'],
+					imageURL:
+						'http://ddragon.leagueoflegends.com/cdn/' +
+						champion['version'] +
+						'/img/champion/' +
+						champion['id'] +
+						'.png',
+					stats: {
+						create: champion['stats'],
+					},
 				},
 				create: {
-					id: itemNum,
-					name: item['name'],
-					description: filterDescription(item['description']),
-					plaintext: item['plaintext'],
-					into: item['into'],
-					from: item['from'],
-					goldTotalCost: item['gold']['total'],
-					tags: item['tags'],
+					version: champion['version'],
+					id: champion['id'],
+					key: champion['key'],
+					name: champion['name'],
+					title: champion['title'],
+					tags: champion['tags'],
+					partype: champion['partype'],
+					imageURL:
+						'http://ddragon.leagueoflegends.com/cdn/' +
+						champion['version'] +
+						'/img/champion/' +
+						champion['id'] +
+						'.png',
+					stats: {
+						create: champion['stats'],
+					},
 				},
 			});
 		}
 	});
 
-	const allUsers = await prismaClient.item.findMany();
+	const allUsers = await prismaClient.champion.findMany({
+		include: {
+			stats: true,
+		},
+	});
 	console.dir(allUsers, { depth: null });
 }
 

@@ -4,11 +4,11 @@ import { PrismaClient } from '@prisma/client';
 import { context } from './context';
 import { updateChampionLists } from './RiotAPI/updateChampStats';
 
-const prisma = new PrismaClient();
-const schedule = require('node-schedule');
-var cron = require('node-schedule');
-var rule = new cron.RecurrenceRule();
-rule.second = 30;
+// const prisma = new PrismaClient();
+// const schedule = require('node-schedule');
+// var cron = require('node-schedule');
+// var rule = new cron.RecurrenceRule();
+// rule.second = 30;
 
 // schedule.scheduleJob(rule, function () {
 // 	console.log('The answer to life, the universe, and everything!');
