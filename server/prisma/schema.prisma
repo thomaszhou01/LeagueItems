@@ -79,7 +79,7 @@ model ChampionStats {
   attackspeedperlevel  Float
   attackspeed          Float
   champion             Champion? @relation(fields: [championId], references: [objectID])
-  championId           String   @unique @db.ObjectId
+  championId           String    @unique @db.ObjectId
 }
 
 model Item {
@@ -92,4 +92,5 @@ model Item {
   from          String[]
   goldTotalCost Int
   tags          String[]
+  imageURL      String
 }

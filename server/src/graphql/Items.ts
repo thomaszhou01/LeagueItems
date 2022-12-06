@@ -15,6 +15,7 @@ export const Item = objectType({
 		t.nonNull.list.string('from');
 		t.nonNull.string('goldTotalCost');
 		t.nonNull.list.string('tags');
+		t.nonNull.string('imageURL');
 	},
 });
 

@@ -12,6 +12,7 @@ export const getAllItems = gql`
 			from
 			goldTotalCost
 			tags
+			imageURL
 		}
 	}
 `;

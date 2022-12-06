@@ -43,6 +43,7 @@ type Item {
   from: [String]!
   goldTotalCost: String!
   id: String!
+  imageURL: String!
   into: [String]!
   name: String!
   objectID: String!

@@ -86,6 +86,7 @@ export interface NexusGenFieldTypes {
     from: Array<string | null>; // [String]!
     goldTotalCost: string; // String!
     id: string; // String!
+    imageURL: string; // String!
     into: Array<string | null>; // [String]!
     name: string; // String!
     objectID: string; // String!
@@ -150,6 +151,7 @@ export interface NexusGenFieldTypeNames {
     from: 'String'
     goldTotalCost: 'String'
     id: 'String'
+    imageURL: 'String'
     into: 'String'
     name: 'String'
     objectID: 'String'
