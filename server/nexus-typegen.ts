@@ -31,6 +31,7 @@ export interface NexusGenObjects {
   Champion: prisma.Champion;
   ChampionStats: prisma.ChampionStats;
   Item: prisma.Item;
+  ItemStats: prisma.ItemStats;
   Link: prisma.Link;
   Mutation: {};
   Query: {};
@@ -91,7 +92,32 @@ export interface NexusGenFieldTypes {
     name: string; // String!
     objectID: string; // String!
     plaintext: string; // String!
+    stats: NexusGenRootTypes['ItemStats'] | null; // ItemStats
     tags: Array<string | null>; // [String]!
+  }
+  ItemStats: { // field return type
+    ad: number; // Float!
+    armor: number; // Float!
+    armorPen: number; // Float!
+    as: number; // Float!
+    crit: number; // Float!
+    flatMagicPen: number; // Float!
+    haste: number; // Float!
+    healthRegen: number; // Float!
+    hp: number; // Float!
+    item: NexusGenRootTypes['Item'] | null; // Item
+    itemId: string | null; // String
+    lethality: number; // Float!
+    lifeSteal: number; // Float!
+    mana: number; // Float!
+    mr: number; // Float!
+    ms: number; // Float!
+    omnivamp: number; // Float!
+    percentMagicPen: number; // Float!
+    physicalVamp: number; // Float!
+    range: number; // Float!
+    resourceRegen: number; // Float!
+    tenacity: number; // Float!
   }
   Link: { // field return type
     description: string; // String!
@@ -156,7 +182,32 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     objectID: 'String'
     plaintext: 'String'
+    stats: 'ItemStats'
     tags: 'String'
+  }
+  ItemStats: { // field return type name
+    ad: 'Float'
+    armor: 'Float'
+    armorPen: 'Float'
+    as: 'Float'
+    crit: 'Float'
+    flatMagicPen: 'Float'
+    haste: 'Float'
+    healthRegen: 'Float'
+    hp: 'Float'
+    item: 'Item'
+    itemId: 'String'
+    lethality: 'Float'
+    lifeSteal: 'Float'
+    mana: 'Float'
+    mr: 'Float'
+    ms: 'Float'
+    omnivamp: 'Float'
+    percentMagicPen: 'Float'
+    physicalVamp: 'Float'
+    range: 'Float'
+    resourceRegen: 'Float'
+    tenacity: 'Float'
   }
   Link: { // field return type name
     description: 'String'

@@ -31,15 +31,120 @@ function filterDescription(description: String) {
 	return effects;
 }
 
+function assignStats(stats: String[]) {
+	let statsTemplate = {
+		ap: 0,
+		armorPen: 0,
+		lethality: 0,
+		ad: 0,
+		as: 0,
+		crit: 0,
+		lifeSteal: 0,
+		flatMagicPen: 0,
+		percentMagicPen: 0,
+		omnivamp: 0,
+		physicalVamp: 0,
+		armor: 0,
+		hp: 0,
+		healthRegen: 0,
+		mr: 0,
+		tenacity: 0,
+		haste: 0,
+		mana: 0,
+		resourceRegen: 0,
+		ms: 0,
+		range: 0,
+	};
+
+	for (let stat in stats) {
+		const value = stats[stat].split(' ')[0];
+		const body = stats[stat].slice(stats[stat].indexOf(' ') + 1);
+		if (parseInt(value)) {
+			const intValue = parseInt(value);
+			let isPercent = false;
+			if (value.split('%').length > 1) {
+				isPercent = true;
+			}
+			switch (body) {
+				case 'Ability Power':
+					statsTemplate['ap'] += intValue;
+					break;
+				case 'Armor Penetration':
+					statsTemplate['armorPen'] += intValue;
+					break;
+				case 'Lethality':
+					statsTemplate['lethality'] += intValue;
+					break;
+				case 'Lethality':
+					statsTemplate['lethality'] += intValue;
+					break;
+				case 'Attack Damage':
+					statsTemplate['ad'] += intValue;
+					break;
+				case 'Attack Speed':
+					statsTemplate['as'] += intValue;
+					break;
+				case 'Critical Strike Chance':
+					statsTemplate['crit'] += intValue;
+					break;
+				case 'Life Steal':
+					statsTemplate['lifeSteal'] += intValue;
+					break;
+				case 'Magic Penetration':
+					if (isPercent) statsTemplate['flatMagicPen'] += intValue;
+					else statsTemplate['percentMagicPen'] += intValue;
+					break;
+				case 'Omnivamp':
+					statsTemplate['omnivamp'] += intValue;
+					break;
+				case 'Physical Vamp':
+					statsTemplate['physicalVamp'] += intValue;
+					break;
+				case 'Armor':
+					statsTemplate['armor'] += intValue;
+					break;
+				case 'Health':
+					statsTemplate['hp'] += intValue;
+					break;
+				case 'Base Health Regen':
+					statsTemplate['healthRegen'] += intValue;
+					break;
+				case 'Magic Resist':
+					statsTemplate['mr'] += intValue;
+					break;
+				case 'Tenacity':
+					statsTemplate['tenacity'] += intValue;
+					break;
+				case 'Ability Haste':
+					statsTemplate['haste'] += intValue;
+					break;
+				case 'Mana':
+					statsTemplate['mana'] += intValue;
+					break;
+				case 'Base Mana Regen':
+					statsTemplate['resourceRegen'] += intValue;
+					break;
+				case 'Move Speed':
+					statsTemplate['ms'] += intValue;
+					break;
+			}
+		}
+	}
+	return statsTemplate;
+}
+
 export async function updateItemLists(prismaClient: any) {
 	await prismaClient.$connect();
 	getItems().then(async (response: any) => {
 		const data = response['data'];
 		for (var itemNum in data) {
 			const item = data[itemNum];
-			if (!item['gold']['purchasable']) {
+			if (!item['gold']['purchasable'] || item['gold']['total'] == 0) {
 				continue;
 			}
+			console.log(itemNum);
+			const description = filterDescription(item['description']);
+			const stats = assignStats(description);
 			await prismaClient.item.upsert({
 				where: {
 					id: itemNum,
@@ -47,7 +152,7 @@ export async function updateItemLists(prismaClient: any) {
 				update: {
 					id: itemNum,
 					name: item['name'],
-					description: filterDescription(item['description']),
+					description: description,
 					plaintext: item['plaintext'],
 					into: item['into'],
 					from: item['from'],
@@ -59,11 +164,14 @@ export async function updateItemLists(prismaClient: any) {
 						'/img/item/' +
 						itemNum +
 						'.png',
+					stats: {
+						update: stats,
+					},
 				},
 				create: {
 					id: itemNum,
 					name: item['name'],
-					description: filterDescription(item['description']),
+					description: description,
 					plaintext: item['plaintext'],
 					into: item['into'],
 					from: item['from'],
@@ -75,6 +183,9 @@ export async function updateItemLists(prismaClient: any) {
 						'/img/item/' +
 						itemNum +
 						'.png',
+					stats: {
+						create: stats,
+					},
 				},
 			});
 		}

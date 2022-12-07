@@ -16,6 +16,50 @@ export const Item = objectType({
 		t.nonNull.string('goldTotalCost');
 		t.nonNull.list.string('tags');
 		t.nonNull.string('imageURL');
+		t.field('stats', {
+			type: 'ItemStats',
+			resolve(parent, args, context) {
+				return context.prisma.itemStats.findUnique({
+					where: { itemId: parent.objectID },
+				});
+			},
+		});
+	},
+});
+
+export const ItemStats = objectType({
+	name: 'ItemStats',
+	definition(t) {
+		t.nonNull.float('ad');
+		t.nonNull.float('armorPen');
+		t.nonNull.float('lethality');
+		t.nonNull.float('ad');
+		t.nonNull.float('as');
+		t.nonNull.float('crit');
+		t.nonNull.float('lifeSteal');
+		t.nonNull.float('flatMagicPen');
+		t.nonNull.float('percentMagicPen');
+		t.nonNull.float('omnivamp');
+		t.nonNull.float('physicalVamp');
+		t.nonNull.float('armor');
+		t.nonNull.float('hp');
+		t.nonNull.float('healthRegen');
+		t.nonNull.float('mr');
+		t.nonNull.float('tenacity');
+		t.nonNull.float('haste');
+		t.nonNull.float('mana');
+		t.nonNull.float('resourceRegen');
+		t.nonNull.float('ms');
+		t.nonNull.float('range');
+		t.string('itemId');
+		t.field('item', {
+			type: 'Item',
+			resolve(parent, args, context) {
+				return context.prisma.item.findUnique({
+					where: { objectID: parent.itemId },
+				});
+			},
+		});
 	},
 });
 

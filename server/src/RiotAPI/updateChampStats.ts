@@ -24,7 +24,7 @@ export async function updateChampionLists(prismaClient: any) {
 						champion['id'] +
 						'.png',
 					stats: {
-						create: champion['stats'],
+						update: champion['stats'],
 					},
 				},
 				create: {

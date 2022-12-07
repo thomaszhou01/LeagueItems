@@ -48,7 +48,33 @@ type Item {
   name: String!
   objectID: String!
   plaintext: String!
+  stats: ItemStats
   tags: [String]!
+}
+
+type ItemStats {
+  ad: Float!
+  armor: Float!
+  armorPen: Float!
+  as: Float!
+  crit: Float!
+  flatMagicPen: Float!
+  haste: Float!
+  healthRegen: Float!
+  hp: Float!
+  item: Item
+  itemId: String
+  lethality: Float!
+  lifeSteal: Float!
+  mana: Float!
+  mr: Float!
+  ms: Float!
+  omnivamp: Float!
+  percentMagicPen: Float!
+  physicalVamp: Float!
+  range: Float!
+  resourceRegen: Float!
+  tenacity: Float!
 }
 
 type Link {

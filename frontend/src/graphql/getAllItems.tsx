@@ -13,6 +13,29 @@ export const getAllItems = gql`
 			goldTotalCost
 			tags
 			imageURL
+			stats {
+				ad
+				armorPen
+				lethality
+				as
+				crit
+				lifeSteal
+				flatMagicPen
+				percentMagicPen
+				omnivamp
+				physicalVamp
+				armor
+				hp
+				healthRegen
+				mr
+				tenacity
+				haste
+				mana
+				resourceRegen
+				ms
+				range
+				itemId
+			}
 		}
 	}
 `;
