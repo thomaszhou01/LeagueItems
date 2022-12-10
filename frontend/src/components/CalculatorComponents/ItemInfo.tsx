@@ -43,7 +43,12 @@ function ItemInfo(props: any) {
 						alt={props.data.id}
 						src={props.data.imageURL}
 						onClick={(event) => {
-							console.log(props.data.id);
+							props.addItem(
+								props.data.stats,
+								props.data.imageURL,
+								props.data.id,
+								props.data.goldTotalCost,
+							);
 						}}
 					/>
 					<Typography>{props.data.goldTotalCost}</Typography>

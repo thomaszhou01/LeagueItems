@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { getAllItems } from '../graphql/getAllItems';
-import ItemInfo from './ItemInfo';
+import ItemInfo from './CalculatorComponents/ItemInfo';
 import { Grid, Box } from '@mui/material';
 
-function DisplayItems() {
+function DisplayItems(props: any) {
 	const { data, loading, error } = useQuery(getAllItems);
 	console.log(data);
 	if (loading) return <pre>"Loading..."</pre>;
@@ -15,7 +15,7 @@ function DisplayItems() {
 			<h1>Display Items</h1>
 			<Grid container spacing={2}>
 				{data.getAllItems.map((feed: any) => (
-					<ItemInfo data={feed} />
+					<ItemInfo addItem={props.addItem} data={feed} />
 				))}
 			</Grid>
 		</Box>

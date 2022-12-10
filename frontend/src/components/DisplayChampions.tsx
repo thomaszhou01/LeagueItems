@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { getAllChampions } from '../graphql/getAllChampions';
 
-function DisplayChampions() {
+function DisplayChampions(props: any) {
 	const { data, loading, error } = useQuery(getAllChampions);
 	console.log(data);
 	if (loading) return <pre>"Loading..."</pre>;

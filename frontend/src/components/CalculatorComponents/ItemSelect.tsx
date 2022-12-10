@@ -4,7 +4,7 @@ import { Box, Typography, Avatar, Grid, Paper, Button } from '@mui/material';
 function ItemSelect(props: any) {
 	return (
 		<Box width={props.imageSize} height={props.imageSize}>
-			{props.selected ? (
+			{props.active ? (
 				<Box
 					component="img"
 					alt={props.alt}
@@ -12,7 +12,7 @@ function ItemSelect(props: any) {
 					width={'100%'}
 					height={'100%'}
 					onClick={(event) => {
-						console.log(props.index);
+						console.log(props.active);
 					}}
 					border={1}
 					borderColor={'#FFD700'}
@@ -22,7 +22,7 @@ function ItemSelect(props: any) {
 					width={'100%'}
 					height={'100%'}
 					onClick={(event) => {
-						console.log(props.index);
+						console.log(props.active);
 					}}
 					border={1}
 					borderColor={'#FFD700'}
