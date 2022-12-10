@@ -18,4 +18,6 @@ function DisplayChampions() {
 	);
 }
 
+//To calculate champion stats: stat = base + growth(lvl-1) * (0.7025 + 0.0175*(lv-1))
+
 export default DisplayChampions;
