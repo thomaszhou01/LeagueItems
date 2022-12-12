@@ -7,7 +7,6 @@ import { Grid, Box } from '@mui/material';
 
 function DisplayItems(props: any) {
 	const { data, loading, error } = useQuery(getAllItems);
-	console.log(data);
 	if (loading) return <pre>"Loading..."</pre>;
 	if (error) return <pre>{error.message}</pre>;
 	return (

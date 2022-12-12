@@ -103,6 +103,9 @@ function ItemInfo(props: any) {
 					{props.data.description.map((description: any) =>
 						filterItemDescription(description),
 					)}
+					<Typography sx={{ fontStyle: 'italic', p: 1 }}>
+						Left Click to Add
+					</Typography>
 				</Stack>
 			</Popover>
 		</Grid>

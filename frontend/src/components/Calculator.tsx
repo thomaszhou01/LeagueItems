@@ -2,8 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { Box, Typography, Avatar, Grid, Paper, Button } from '@mui/material';
 import ItemSelect from './CalculatorComponents/ItemSelect';
-import DisplayChampions from './DisplayChampions';
+import DisplayChampions from './ChampionDisplay/DisplayChampions';
 import DisplayItems from './DisplayItems';
+import ChampionSelector from './ChampionSelector';
 
 function Calculator() {
 	const imageSize = 150;
@@ -19,6 +20,7 @@ function Calculator() {
 	]);
 	const [imageUrl, setImageUrl] = useState(['', '', '', '', '', '']);
 	const [imageAlt, setImageAlt] = useState(['', '', '', '', '', '']);
+	const [itemCost, setItemCost] = useState(['', '', '', '', '', '']);
 	const [itemData, setItemData] = useState([
 		null,
 		null,
@@ -41,12 +43,7 @@ function Calculator() {
 		id: string,
 		goldTotalCost: string,
 	) {
-		console.log(stats);
-		console.log(itemImgUrl);
-		console.log(id);
-		console.log(goldTotalCost);
 		for (let slot in activeSlots) {
-			console.log(slot);
 			if (!activeSlots[slot]) {
 				setItemData((prevData) => {
 					prevData[slot] = stats;
@@ -60,6 +57,10 @@ function Calculator() {
 					prevAlt[slot] = id;
 					return [...prevAlt];
 				});
+				setItemCost((prevGold) => {
+					prevGold[slot] = goldTotalCost;
+					return [...prevGold];
+				});
 				setActiveSlots((prevSlots) => {
 					prevSlots[slot] = true;
 					return [...prevSlots];
@@ -70,7 +71,30 @@ function Calculator() {
 		}
 	}
 
-	function removeItem(item: any) {}
+	function removeItem(index: number, cost: string) {
+		setItemData((prevData) => {
+			prevData[index] = null;
+			return [...prevData];
+		});
+		setImageUrl((prevUrl) => {
+			prevUrl[index] = '';
+			return [...prevUrl];
+		});
+		setImageAlt((prevAlt) => {
+			prevAlt[index] = '';
+			return [...prevAlt];
+		});
+		setItemCost((prevGold) => {
+			prevGold[index] = '';
+			return [...prevGold];
+		});
+		setActiveSlots((prevSlots) => {
+			prevSlots[index] = false;
+			return [...prevSlots];
+		});
+		setTotalCost(totalCost - parseInt(cost));
+		console.log(cost);
+	}
 
 	return (
 		<Box>
@@ -79,14 +103,8 @@ function Calculator() {
 				Click
 			</Button>
 			<Typography>Total cost: {totalCost}</Typography>
-
 			<Grid container>
-				<Avatar
-					alt="Aatrox"
-					src="http://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/Aatrox.png"
-					sx={{ width: 200, height: 200 }}
-				/>
-
+				<ChampionSelector></ChampionSelector>
 				<Box width={imageSize * 3 + spacing * 4}>
 					<Grid
 						sx={{ paddingRight: 1, paddingBottom: 1 }}
@@ -104,6 +122,8 @@ function Calculator() {
 										alt={imageAlt[index]}
 										active={activeSlots[index]}
 										index={index}
+										goldTotalCost={itemCost[index]}
+										removeItem={removeItem}
 									/>
 								</Grid>
 							);
@@ -112,7 +132,6 @@ function Calculator() {
 				</Box>
 			</Grid>
 			<DisplayItems addItem={addItem}></DisplayItems>
-			<DisplayChampions></DisplayChampions>
 		</Box>
 	);
 }
