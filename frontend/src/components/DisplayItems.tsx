@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { getAllItems } from '../graphql/getAllItems';
-import ItemInfo from './CalculatorComponents/ItemInfo';
+import ItemInfo from './ItemComponents/ItemInfo';
 import { Grid, Box } from '@mui/material';
 
 function DisplayItems(props: any) {

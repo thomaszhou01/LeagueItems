@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import { Box, Typography, Avatar, Grid, Paper, Button } from '@mui/material';
-import ItemSelect from './CalculatorComponents/ItemSelect';
+import ItemSelect from './ItemComponents/ItemSelect';
 import DisplayItems from './DisplayItems';
-import ChampionSelector from './ChampionSelector';
+import ChampionSelector from './ChampionDisplay/ChampionSelector';
 import DisplayStats from './StatsDisplay/DisplayStats';
 import { display } from '@mui/system';
 
@@ -154,6 +154,10 @@ function Calculator() {
 		console.log(displayStats);
 	}
 
+	function setChampionStats(stats: any) {
+		console.log(stats);
+	}
+
 	return (
 		<Box>
 			<Typography variant="h1">Champion</Typography>
@@ -162,10 +166,8 @@ function Calculator() {
 			</Button>
 			<Typography>Total cost: {totalCost}</Typography>
 			<Grid container>
-				<ChampionSelector></ChampionSelector>
+				<ChampionSelector setChampStats={setChampionStats}></ChampionSelector>
 				<Button onClick={updateStats}>Test</Button>
-				<DisplayStats stats={displayStats}></DisplayStats>
-
 				<Box width={imageSize * 3 + spacing * 4}>
 					<Grid
 						sx={{ paddingRight: 1, paddingBottom: 1 }}
@@ -190,6 +192,9 @@ function Calculator() {
 							);
 						})}
 					</Grid>
+				</Box>
+				<Box width={600}>
+					<DisplayStats stats={displayStats}></DisplayStats>
 				</Box>
 			</Grid>
 			<DisplayItems addItem={addItem}></DisplayItems>

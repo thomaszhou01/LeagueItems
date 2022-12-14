@@ -8,7 +8,7 @@ import {
 	Drawer,
 	IconButton,
 } from '@mui/material';
-import DisplayChampions from './ChampionDisplay/DisplayChampions';
+import DisplayChampions from './DisplayChampions';
 
 function ChampionSelector(props: any) {
 	const [state, setState] = useState(false);
@@ -20,6 +20,10 @@ function ChampionSelector(props: any) {
 
 	function championImage(image: string) {
 		setImageSource(image);
+	}
+
+	function setStats(stats: any) {
+		props.setChampStats(stats);
 	}
 
 	return (
@@ -37,6 +41,7 @@ function ChampionSelector(props: any) {
 					<DisplayChampions
 						setImage={championImage}
 						toggleDrawer={toggleDrawer}
+						setStats={setStats}
 					></DisplayChampions>
 				</Drawer>
 			</Box>
