@@ -30,7 +30,7 @@ export const Item = objectType({
 export const ItemStats = objectType({
 	name: 'ItemStats',
 	definition(t) {
-		t.nonNull.float('ad');
+		t.nonNull.float('ap');
 		t.nonNull.float('armorPen');
 		t.nonNull.float('lethality');
 		t.nonNull.float('ad');

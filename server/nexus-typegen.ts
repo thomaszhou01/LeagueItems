@@ -97,6 +97,7 @@ export interface NexusGenFieldTypes {
   }
   ItemStats: { // field return type
     ad: number; // Float!
+    ap: number; // Float!
     armor: number; // Float!
     armorPen: number; // Float!
     as: number; // Float!
@@ -187,6 +188,7 @@ export interface NexusGenFieldTypeNames {
   }
   ItemStats: { // field return type name
     ad: 'Float'
+    ap: 'Float'
     armor: 'Float'
     armorPen: 'Float'
     as: 'Float'

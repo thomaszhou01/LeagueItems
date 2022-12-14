@@ -14,6 +14,7 @@ export const getAllItems = gql`
 			tags
 			imageURL
 			stats {
+				ap
 				ad
 				armorPen
 				lethality

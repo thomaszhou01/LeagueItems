@@ -54,6 +54,7 @@ type Item {
 
 type ItemStats {
   ad: Float!
+  ap: Float!
   armor: Float!
   armorPen: Float!
   as: Float!

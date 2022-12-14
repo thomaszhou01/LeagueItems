@@ -2,10 +2,57 @@ import React from 'react';
 import { useState } from 'react';
 import { Box, Typography, Avatar, Grid, Paper, Button } from '@mui/material';
 import ItemSelect from './CalculatorComponents/ItemSelect';
-import DisplayChampions from './ChampionDisplay/DisplayChampions';
 import DisplayItems from './DisplayItems';
 import ChampionSelector from './ChampionSelector';
+import DisplayStats from './StatsDisplay/DisplayStats';
+import { display } from '@mui/system';
 
+interface Stats {
+	ap: number;
+	armorPen: number;
+	lethality: number;
+	ad: number;
+	as: number;
+	crit: number;
+	lifeSteal: number;
+	flatMagicPen: number;
+	percentMagicPen: number;
+	omnivamp: number;
+	physicalVamp: number;
+	armor: number;
+	hp: number;
+	healthRegen: number;
+	mr: number;
+	tenacity: number;
+	haste: number;
+	range: number;
+	mana: number;
+	resourceRegen: number;
+	ms: number;
+}
+let displayStats = {
+	ad: 0,
+	ap: 0,
+	armorPen: 0,
+	lethality: 0,
+	as: 0,
+	crit: 0,
+	lifeSteal: 0,
+	flatMagicPen: 0,
+	percentMagicPen: 0,
+	omnivamp: 0,
+	physicalVamp: 0,
+	armor: 0,
+	hp: 0,
+	healthRegen: 0,
+	mr: 0,
+	tenacity: 0,
+	haste: 0,
+	range: 0,
+	mana: 0,
+	resourceRegen: 0,
+	ms: 0,
+};
 function Calculator() {
 	const imageSize = 150;
 	const spacing = 10;
@@ -65,6 +112,10 @@ function Calculator() {
 					prevSlots[slot] = true;
 					return [...prevSlots];
 				});
+
+				for (let key in displayStats) {
+					displayStats[key as keyof Stats] += stats[key as keyof Stats];
+				}
 				setTotalCost(totalCost + parseInt(goldTotalCost));
 				break;
 			}
@@ -72,6 +123,10 @@ function Calculator() {
 	}
 
 	function removeItem(index: number, cost: string) {
+		for (let key in displayStats) {
+			let data = itemData[index]!;
+			displayStats[key as keyof Stats] -= data[key as keyof Stats];
+		}
 		setItemData((prevData) => {
 			prevData[index] = null;
 			return [...prevData];
@@ -93,7 +148,10 @@ function Calculator() {
 			return [...prevSlots];
 		});
 		setTotalCost(totalCost - parseInt(cost));
-		console.log(cost);
+	}
+
+	function updateStats(newStats: any) {
+		console.log(displayStats);
 	}
 
 	return (
@@ -105,6 +163,9 @@ function Calculator() {
 			<Typography>Total cost: {totalCost}</Typography>
 			<Grid container>
 				<ChampionSelector></ChampionSelector>
+				<Button onClick={updateStats}>Test</Button>
+				<DisplayStats stats={displayStats}></DisplayStats>
+
 				<Box width={imageSize * 3 + spacing * 4}>
 					<Grid
 						sx={{ paddingRight: 1, paddingBottom: 1 }}

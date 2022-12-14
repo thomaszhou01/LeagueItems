@@ -6,8 +6,18 @@ import Champion from './Champion';
 
 function DisplayChampions(props: any) {
 	const { data, loading, error } = useQuery(getAllChampions);
-	if (loading) return <pre>"Loading..."</pre>;
-	if (error) return <pre>{error.message}</pre>;
+	if (loading)
+		return (
+			<Box sx={{ color: 'white', backgroundColor: '#070720' }}>
+				"Loading..."
+			</Box>
+		);
+	if (error)
+		return (
+			<Box sx={{ color: 'white', backgroundColor: '#070720' }}>
+				{error.message}
+			</Box>
+		);
 
 	function setChampion(image: string) {
 		props.setImage(image);
