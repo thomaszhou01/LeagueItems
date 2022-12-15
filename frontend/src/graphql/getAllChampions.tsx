@@ -25,6 +25,8 @@ export const getAllChampions = gql`
 				attackrange
 				hpregen
 				hpregenperlevel
+				mpregen
+				mpregenperlevel
 				crit
 				critperlevel
 				attackdamage

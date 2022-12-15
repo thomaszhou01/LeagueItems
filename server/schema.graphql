@@ -34,6 +34,8 @@ type ChampionStats {
   movespeed: Float!
   mp: Float!
   mpperlevel: Float!
+  mpregen: Float!
+  mpregenperlevel: Float!
   spellblock: Float!
   spellblockperlevel: Float!
 }

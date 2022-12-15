@@ -41,6 +41,8 @@ export const ChampionStats = objectType({
 		t.nonNull.float('attackrange');
 		t.nonNull.float('hpregen');
 		t.nonNull.float('hpregenperlevel');
+		t.nonNull.float('mpregen');
+		t.nonNull.float('mpregenperlevel');
 		t.nonNull.float('crit');
 		t.nonNull.float('critperlevel');
 		t.nonNull.float('attackdamage');

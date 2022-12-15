@@ -79,6 +79,8 @@ export interface NexusGenFieldTypes {
     movespeed: number; // Float!
     mp: number; // Float!
     mpperlevel: number; // Float!
+    mpregen: number; // Float!
+    mpregenperlevel: number; // Float!
     spellblock: number; // Float!
     spellblockperlevel: number; // Float!
   }
@@ -170,6 +172,8 @@ export interface NexusGenFieldTypeNames {
     movespeed: 'Float'
     mp: 'Float'
     mpperlevel: 'Float'
+    mpregen: 'Float'
+    mpregenperlevel: 'Float'
     spellblock: 'Float'
     spellblockperlevel: 'Float'
   }

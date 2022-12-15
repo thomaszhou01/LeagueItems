@@ -19,9 +19,9 @@ function DisplayChampions(props: any) {
 			</Box>
 		);
 
-	function setChampion(image: string, stats: any) {
+	function setChampion(image: string, stats: any, partype: string) {
 		props.setImage(image);
-		props.setStats(stats);
+		props.setStats(stats, partype);
 		props.toggleDrawer();
 	}
 
@@ -36,6 +36,7 @@ function DisplayChampions(props: any) {
 							src={feed.imageURL}
 							championName={feed.name}
 							stats={feed.stats}
+							partype={feed.partype}
 							setChampion={setChampion}
 						/>
 					</Grid>

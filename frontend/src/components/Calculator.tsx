@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import { Box, Typography, Avatar, Grid, Paper, Button } from '@mui/material';
+import { Box, Typography, Grid, Button } from '@mui/material';
 import ItemSelect from './ItemComponents/ItemSelect';
 import DisplayItems from './DisplayItems';
 import ChampionSelector from './ChampionDisplay/ChampionSelector';
 import DisplayStats from './StatsDisplay/DisplayStats';
-import { display } from '@mui/system';
 
 interface Stats {
 	ap: number;
@@ -30,7 +29,8 @@ interface Stats {
 	resourceRegen: number;
 	ms: number;
 }
-let displayStats = {
+
+let itemStats = {
 	ad: 0,
 	ap: 0,
 	armorPen: 0,
@@ -53,6 +53,7 @@ let displayStats = {
 	resourceRegen: 0,
 	ms: 0,
 };
+
 function Calculator() {
 	const imageSize = 150;
 	const spacing = 10;
@@ -77,6 +78,31 @@ function Calculator() {
 		null,
 	]);
 	const [totalCost, setTotalCost] = useState(0);
+	const [partype, setPartype] = useState('');
+	const [level, setLevel] = useState(1);
+	const [championStats, setChampionStats] = useState({
+		hp: 0,
+		hpperlevel: 0,
+		mp: 0,
+		mpperlevel: 0,
+		movespeed: 0,
+		armor: 0,
+		armorperlevel: 0,
+		spellblock: 0,
+		spellblockperlevel: 0,
+		attackrange: 0,
+		hpregen: 0,
+		hpregenperlevel: 0,
+		mpregen: 0,
+		mpregenperlevel: 0,
+		crit: 0,
+		critperlevel: 0,
+		attackdamage: 0,
+		attackdamageperlevel: 0,
+		attackspeedperlevel: 0,
+		attackspeed: 0,
+		championId: 0,
+	});
 
 	function toggleButton() {
 		setToggle(!toggle);
@@ -113,8 +139,8 @@ function Calculator() {
 					return [...prevSlots];
 				});
 
-				for (let key in displayStats) {
-					displayStats[key as keyof Stats] += stats[key as keyof Stats];
+				for (let key in itemStats) {
+					itemStats[key as keyof Stats] += stats[key as keyof Stats];
 				}
 				setTotalCost(totalCost + parseInt(goldTotalCost));
 				break;
@@ -123,9 +149,9 @@ function Calculator() {
 	}
 
 	function removeItem(index: number, cost: string) {
-		for (let key in displayStats) {
+		for (let key in itemStats) {
 			let data = itemData[index]!;
-			displayStats[key as keyof Stats] -= data[key as keyof Stats];
+			itemStats[key as keyof Stats] -= data[key as keyof Stats];
 		}
 		setItemData((prevData) => {
 			prevData[index] = null;
@@ -151,11 +177,18 @@ function Calculator() {
 	}
 
 	function updateStats(newStats: any) {
-		console.log(displayStats);
+		console.log(itemStats);
 	}
 
-	function setChampionStats(stats: any) {
-		console.log(stats);
+	function updateChampionStats(stats: any, partype: any) {
+		console.log(partype);
+		setPartype(partype);
+		setChampionStats(stats);
+	}
+
+	function updateLevel(event: any) {
+		setLevel(event.target.value as number);
+		console.log(event.target.value as number);
 	}
 
 	return (
@@ -165,8 +198,16 @@ function Calculator() {
 				Click
 			</Button>
 			<Typography>Total cost: {totalCost}</Typography>
+			<Typography sx={{ wordWrap: 'break-word', width: 1100 }}>
+				{JSON.stringify(championStats)}
+			</Typography>
+
 			<Grid container>
-				<ChampionSelector setChampStats={setChampionStats}></ChampionSelector>
+				<ChampionSelector
+					setChampStats={updateChampionStats}
+					level={level}
+					changeLevel={updateLevel}
+				></ChampionSelector>
 				<Button onClick={updateStats}>Test</Button>
 				<Box width={imageSize * 3 + spacing * 4}>
 					<Grid
@@ -194,7 +235,12 @@ function Calculator() {
 					</Grid>
 				</Box>
 				<Box width={600}>
-					<DisplayStats stats={displayStats}></DisplayStats>
+					<DisplayStats
+						stats={itemStats}
+						championStats={championStats}
+						partype={partype}
+						level={level}
+					></DisplayStats>
 				</Box>
 			</Grid>
 			<DisplayItems addItem={addItem}></DisplayItems>

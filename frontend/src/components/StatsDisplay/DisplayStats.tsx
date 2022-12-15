@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Box, Typography, Grid, Paper, Button } from '@mui/material';
 import IndividualStat from './IndividualStat';
+import BarStats from './BarStats';
 import ad from '../../assets/ad.webp';
 import ap from '../../assets/ap.webp';
 import armor from '../../assets/armor.webp';
@@ -20,8 +21,46 @@ import ms from '../../assets/ms.webp';
 import omnivamp from '../../assets/omnivamp.webp';
 import range from '../../assets/range.webp';
 import tenacity from '../../assets/tenacity.webp';
+import healthBar from '../../assets/healthBar.webp';
+import manaBar from '../../assets/manaBar.webp';
+import energyBar from '../../assets/energy.webp';
+import redBar from '../../assets/redBar.webp';
+import whiteBar from '../../assets/whiteBar.webp';
 
 function DisplayStats(props: any) {
+	function championLevelStats(
+		baseStat: number,
+		statGrowth: number,
+		championLevel: number,
+	) {
+		return (
+			Math.round(
+				100 *
+					(baseStat +
+						statGrowth *
+							(championLevel - 1) *
+							(0.7025 + 0.0175 * (championLevel - 1))),
+			) / 100
+		);
+	}
+
+	function attackSpeedCalculation(
+		baseAs: any,
+		statGrowth: number,
+		championLevel: number,
+		bonusItemAs: any,
+	) {
+		if (baseAs === 0) {
+			return bonusItemAs / 100;
+		}
+		const bonusAs =
+			bonusItemAs +
+			statGrowth *
+				(championLevel - 1) *
+				(0.7025 + 0.0175 * (championLevel - 1));
+		return Math.round(100 * (baseAs * (1 + bonusAs / 100))) / 100;
+	}
+
 	return (
 		<Grid
 			sx={{ paddingRight: 1, paddingBottom: 1 }}
@@ -33,6 +72,11 @@ function DisplayStats(props: any) {
 			<IndividualStat
 				image={ad}
 				stat={props.stats['ad']}
+				championStats={championLevelStats(
+					props.championStats['attackdamage'],
+					props.championStats['attackdamageperlevel'],
+					props.level,
+				)}
 				statName={'Attack Damage'}
 			></IndividualStat>
 			<IndividualStat
@@ -43,21 +87,41 @@ function DisplayStats(props: any) {
 			<IndividualStat
 				image={hpRegen}
 				stat={props.stats['healthRegen']}
+				championStats={championLevelStats(
+					props.championStats['hpregen'],
+					props.championStats['hpregenperlevel'],
+					props.level,
+				)}
 				statName={'Health Regen'}
 			></IndividualStat>
 			<IndividualStat
 				image={manaRegen}
 				stat={props.stats['resourceRegen']}
+				championStats={championLevelStats(
+					props.championStats['mpregen'],
+					props.championStats['mpregenperlevel'],
+					props.level,
+				)}
 				statName={'Resource Regen'}
 			></IndividualStat>
 			<IndividualStat
 				image={armor}
 				stat={props.stats['armor']}
+				championStats={championLevelStats(
+					props.championStats['armor'],
+					props.championStats['armorperlevel'],
+					props.level,
+				)}
 				statName={'Armor'}
 			></IndividualStat>
 			<IndividualStat
 				image={mr}
 				stat={props.stats['mr']}
+				championStats={championLevelStats(
+					props.championStats['spellblock'],
+					props.championStats['spellblockperlevel'],
+					props.level,
+				)}
 				statName={'Magic Resistance'}
 			></IndividualStat>
 			<IndividualStat
@@ -74,7 +138,17 @@ function DisplayStats(props: any) {
 			></IndividualStat>
 			<IndividualStat
 				image={as}
-				stat={props.stats['as']}
+				stat={attackSpeedCalculation(
+					props.championStats['attackspeed'],
+					props.championStats['attackspeedperlevel'],
+					props.level,
+					props.stats['as'],
+				)}
+				// championStats={championLevelStats(
+				// 	props.championStats['attackspeed'],
+				// 	props.championStats['attackspeedperlevel'],
+				// 	props.level,
+				// )}
 				statName={'Attack Speed'}
 			></IndividualStat>
 			<IndividualStat
@@ -95,16 +169,23 @@ function DisplayStats(props: any) {
 			<IndividualStat
 				image={crit}
 				stat={props.stats['crit']}
+				championStats={championLevelStats(
+					props.championStats['crit'],
+					props.championStats['critperlevel'],
+					props.level,
+				)}
 				statName={'Critical Strike Chance'}
 			></IndividualStat>
 			<IndividualStat
 				image={ms}
 				stat={props.stats['ms']}
+				championStats={props.championStats['movespeed']}
 				statName={'Movement Speed'}
 			></IndividualStat>
 			<IndividualStat
 				image={range}
 				stat={props.stats['range']}
+				championStats={props.championStats['attackrange']}
 				statName={'Range'}
 			></IndividualStat>
 			<IndividualStat
@@ -112,17 +193,35 @@ function DisplayStats(props: any) {
 				stat={props.stats['tenacity']}
 				statName={'Tenacity'}
 			></IndividualStat>
-			<IndividualStat
-				image={hp}
-				stat={props.stats['hp']}
-				statName={'Health'}
-			></IndividualStat>
+			<Grid item xs={12}>
+				<BarStats
+					image={healthBar}
+					stat={props.stats['hp']}
+					championStats={championLevelStats(
+						props.championStats['hp'],
+						props.championStats['hpperlevel'],
+						props.level,
+					)}
+				></BarStats>
+				<BarStats
+					image={
+						props.partype === 'Mana'
+							? manaBar
+							: props.partype === 'Energy'
+							? energyBar
+							: props.partype === 'Fury' || props.partype === 'Rage'
+							? redBar
+							: whiteBar
+					}
+					stat={props.stats['mana']}
+					championStats={championLevelStats(
+						props.championStats['mp'],
+						props.championStats['mpperlevel'],
+						props.level,
+					)}
+				></BarStats>
+			</Grid>
 
-			<IndividualStat
-				image={mana}
-				stat={props.stats['mana']}
-				statName={'Mana'}
-			></IndividualStat>
 			{/* {Object.keys(props.stats).map((key, index) => {
 				return (
 					<Grid item >

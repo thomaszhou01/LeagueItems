@@ -28,7 +28,10 @@ function IndividualStat(props: any) {
 					onMouseEnter={handlePopoverOpen}
 					onMouseLeave={handlePopoverClose}
 				/>
-				<Typography>{props.stat}</Typography>
+				<Typography>
+					{props.stat +
+						(props.championStats === undefined ? 0 : props.championStats)}
+				</Typography>
 				{props.altStat !== undefined && (
 					<Typography>/{props.altStat}</Typography>
 				)}

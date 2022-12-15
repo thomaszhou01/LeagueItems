@@ -9,6 +9,7 @@ import {
 	IconButton,
 } from '@mui/material';
 import DisplayChampions from './DisplayChampions';
+import LevelSelector from './LevelSelector';
 
 function ChampionSelector(props: any) {
 	const [state, setState] = useState(false);
@@ -22,8 +23,8 @@ function ChampionSelector(props: any) {
 		setImageSource(image);
 	}
 
-	function setStats(stats: any) {
-		props.setChampStats(stats);
+	function setStats(stats: any, partype: string) {
+		props.setChampStats(stats, partype);
 	}
 
 	return (
@@ -36,6 +37,10 @@ function ChampionSelector(props: any) {
 						sx={{ width: 200, height: 200 }}
 					/>
 				</IconButton>
+				<LevelSelector
+					level={props.level}
+					changeLevel={props.changeLevel}
+				></LevelSelector>
 
 				<Drawer anchor={'bottom'} open={state} onClose={toggleDrawer}>
 					<DisplayChampions

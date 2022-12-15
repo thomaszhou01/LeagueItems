@@ -8,7 +8,7 @@ function Champion(props: any) {
 				component="img"
 				alt={props.alt}
 				src={props.src}
-				onClick={() => props.setChampion(props.src, props.stats)}
+				onClick={() => props.setChampion(props.src, props.stats, props.partype)}
 			/>
 			<Typography>{props.championName}</Typography>
 		</Box>
