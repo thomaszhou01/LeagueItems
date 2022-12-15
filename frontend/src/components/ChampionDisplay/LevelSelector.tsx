@@ -2,14 +2,13 @@ import { InputLabel, Select, MenuItem, FormControl } from '@mui/material';
 
 function LevelSelector(props: any) {
 	return (
-		<FormControl variant={'outlined'} fullWidth sx={{ color: 'white' }}>
-			<InputLabel sx={{ color: 'white' }}>Level</InputLabel>
+		<FormControl variant={'outlined'} fullWidth>
+			<InputLabel>Level</InputLabel>
 			<Select
 				value={props.level}
 				label="Level"
 				onChange={props.changeLevel}
 				defaultValue={1}
-				sx={{ color: 'white' }}
 			>
 				<MenuItem value={1}>1</MenuItem>
 				<MenuItem value={2}>2</MenuItem>

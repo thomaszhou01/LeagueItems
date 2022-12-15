@@ -197,10 +197,6 @@ function Calculator() {
 			<Button onClick={toggleButton} variant="contained">
 				Click
 			</Button>
-			<Typography>Total cost: {totalCost}</Typography>
-			<Typography sx={{ wordWrap: 'break-word', width: 1100 }}>
-				{JSON.stringify(championStats)}
-			</Typography>
 
 			<Grid container>
 				<ChampionSelector
@@ -240,6 +236,7 @@ function Calculator() {
 						championStats={championStats}
 						partype={partype}
 						level={level}
+						goldCost={totalCost}
 					></DisplayStats>
 				</Box>
 			</Grid>

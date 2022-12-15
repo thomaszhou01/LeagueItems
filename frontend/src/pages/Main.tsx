@@ -1,15 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
-
 import Calculator from '../components/Calculator';
+import { ThemeProvider } from '@mui/material/styles';
+import { darkTheme } from '../global/Themes';
 
 function Main() {
 	return (
-		<div>
-			<h1>League Item Calculator</h1>
-			<Calculator />
-		</div>
+		<ThemeProvider theme={darkTheme}>
+			<div>
+				<h1>League Item Calculator</h1>
+				<Calculator />
+			</div>
+		</ThemeProvider>
 	);
 }
 

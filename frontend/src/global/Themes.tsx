@@ -7,3 +7,9 @@ export const ButtonThemes = createTheme({
 		},
 	},
 });
+
+export const darkTheme = createTheme({
+	palette: {
+		mode: 'dark',
+	},
+});

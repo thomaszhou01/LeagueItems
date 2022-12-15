@@ -10,11 +10,9 @@ import armorPen from '../../assets/armorPen.webp';
 import as from '../../assets/as.webp';
 import cdr from '../../assets/cdr.webp';
 import crit from '../../assets/crit.webp';
-import hp from '../../assets/hp.webp';
 import hpRegen from '../../assets/hpRegen.webp';
 import lifeSteal from '../../assets/lifeSteal.webp';
 import magicPen from '../../assets/magicPen.webp';
-import mana from '../../assets/mana.webp';
 import manaRegen from '../../assets/manaRegen.webp';
 import mr from '../../assets/mr.webp';
 import ms from '../../assets/ms.webp';
@@ -26,6 +24,7 @@ import manaBar from '../../assets/manaBar.webp';
 import energyBar from '../../assets/energy.webp';
 import redBar from '../../assets/redBar.webp';
 import whiteBar from '../../assets/whiteBar.webp';
+import gold from '../../assets/gold.webp';
 
 function DisplayStats(props: any) {
 	function championLevelStats(
@@ -221,16 +220,11 @@ function DisplayStats(props: any) {
 					)}
 				></BarStats>
 			</Grid>
-
-			{/* {Object.keys(props.stats).map((key, index) => {
-				return (
-					<Grid item >
-						<p>
-							{key}: {props.stats[key]}
-						</p>
-					</Grid>
-				);
-			})} */}
+			<IndividualStat
+				image={gold}
+				stat={props.goldCost}
+				statName={'Gold'}
+			></IndividualStat>
 		</Grid>
 	);
 }

@@ -1,10 +1,11 @@
-import React from 'react';
+import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { getAllChampions } from '../../graphql/getAllChampions';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, TextField } from '@mui/material';
 import Champion from './Champion';
 
 function DisplayChampions(props: any) {
+	const [search, setSearch] = useState('');
 	const { data, loading, error } = useQuery(getAllChampions);
 	if (loading)
 		return (
@@ -26,21 +27,45 @@ function DisplayChampions(props: any) {
 	}
 
 	return (
-		<Box sx={{ color: 'white', backgroundColor: '#070720' }}>
+		<Box
+			sx={{
+				color: 'white',
+				backgroundColor: '#070720',
+				height: '100vh',
+				overflow: 'auto',
+			}}
+		>
 			<Typography variant="h2">Select a Champion</Typography>
+			<TextField
+				label="Search For a Champion"
+				variant="outlined"
+				value={search}
+				onChange={(data) => {
+					setSearch(data.target.value);
+				}}
+				fullWidth
+			/>
 			<Grid container spacing={1}>
-				{data.getAllChampions.map((feed: any) => (
-					<Grid item>
-						<Champion
-							alt={feed.id}
-							src={feed.imageURL}
-							championName={feed.name}
-							stats={feed.stats}
-							partype={feed.partype}
-							setChampion={setChampion}
-						/>
-					</Grid>
-				))}
+				{data.getAllChampions
+					.filter((feed: any) => {
+						if (search === '') {
+							return feed;
+						} else if (feed.name.toLowerCase().includes(search.toLowerCase())) {
+							return feed;
+						}
+					})
+					.map((feed: any) => (
+						<Grid item>
+							<Champion
+								alt={feed.id}
+								src={feed.imageURL}
+								championName={feed.name}
+								stats={feed.stats}
+								partype={feed.partype}
+								setChampion={setChampion}
+							/>
+						</Grid>
+					))}
 			</Grid>
 		</Box>
 	);

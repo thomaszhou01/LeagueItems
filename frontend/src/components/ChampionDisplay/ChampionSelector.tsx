@@ -30,26 +30,29 @@ function ChampionSelector(props: any) {
 	return (
 		<React.Fragment key={'bottom'}>
 			<Box>
-				<IconButton onClick={toggleDrawer}>
-					<Avatar
-						alt="selected champion"
-						src={imageSource}
-						sx={{ width: 200, height: 200 }}
-					/>
-				</IconButton>
-				<LevelSelector
-					level={props.level}
-					changeLevel={props.changeLevel}
-				></LevelSelector>
-
-				<Drawer anchor={'bottom'} open={state} onClose={toggleDrawer}>
-					<DisplayChampions
-						setImage={championImage}
-						toggleDrawer={toggleDrawer}
-						setStats={setStats}
-					></DisplayChampions>
-				</Drawer>
+				<Box>
+					<IconButton onClick={toggleDrawer}>
+						<Avatar
+							alt="selected champion"
+							src={imageSource}
+							sx={{ width: 200, height: 200 }}
+						/>
+					</IconButton>
+				</Box>
+				<Box>
+					<LevelSelector
+						level={props.level}
+						changeLevel={props.changeLevel}
+					></LevelSelector>
+				</Box>
 			</Box>
+			<Drawer anchor={'bottom'} open={state} onClose={toggleDrawer}>
+				<DisplayChampions
+					setImage={championImage}
+					toggleDrawer={toggleDrawer}
+					setStats={setStats}
+				></DisplayChampions>
+			</Drawer>
 		</React.Fragment>
 	);
 }
