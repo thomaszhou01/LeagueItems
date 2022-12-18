@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography, Grid, Button, Stack } from '@mui/material';
 import ItemSelect from './ItemComponents/ItemSelect';
 import DisplayItems from './DisplayItems';
 import ChampionSelector from './ChampionDisplay/ChampionSelector';
@@ -57,7 +57,6 @@ let itemStats = {
 function Calculator() {
 	const imageSize = 150;
 	const spacing = 10;
-	const [toggle, setToggle] = useState(false);
 	const [activeSlots, setActiveSlots] = useState([
 		false,
 		false,
@@ -103,12 +102,6 @@ function Calculator() {
 		attackspeed: 0,
 		championId: 0,
 	});
-
-	function toggleButton() {
-		setToggle(!toggle);
-		console.log(activeSlots);
-		console.log(imageUrl);
-	}
 
 	function addItem(
 		stats: any,
@@ -176,10 +169,6 @@ function Calculator() {
 		setTotalCost(totalCost - parseInt(cost));
 	}
 
-	function updateStats(newStats: any) {
-		console.log(itemStats);
-	}
-
 	function updateChampionStats(stats: any, partype: any) {
 		console.log(partype);
 		setPartype(partype);
@@ -192,56 +181,54 @@ function Calculator() {
 	}
 
 	return (
-		<Box>
-			<Typography variant="h1">Champion</Typography>
-			<Button onClick={toggleButton} variant="contained">
-				Click
-			</Button>
+		<Stack direction="row">
+			<Box>
+				<Typography variant="h1">Champion</Typography>
 
-			<Grid container>
-				<ChampionSelector
-					setChampStats={updateChampionStats}
-					level={level}
-					changeLevel={updateLevel}
-				></ChampionSelector>
-				<Button onClick={updateStats}>Test</Button>
-				<Box width={imageSize * 3 + spacing * 4}>
-					<Grid
-						sx={{ paddingRight: 1, paddingBottom: 1 }}
-						container
-						spacing={1}
-						margin={0}
-						width={'100%'}
-					>
-						{activeSlots.map((feed: any, index) => {
-							return (
-								<Grid item xs={4}>
-									<ItemSelect
-										imageSize={imageSize}
-										src={imageUrl[index]}
-										alt={imageAlt[index]}
-										active={activeSlots[index]}
-										index={index}
-										goldTotalCost={itemCost[index]}
-										removeItem={removeItem}
-									/>
-								</Grid>
-							);
-						})}
-					</Grid>
-				</Box>
-				<Box width={600}>
-					<DisplayStats
-						stats={itemStats}
-						championStats={championStats}
-						partype={partype}
+				<Grid container>
+					<ChampionSelector
+						setChampStats={updateChampionStats}
 						level={level}
-						goldCost={totalCost}
-					></DisplayStats>
-				</Box>
-			</Grid>
+						changeLevel={updateLevel}
+					/>
+					<Box width={imageSize * 3 + spacing * 4}>
+						<Grid
+							sx={{ paddingRight: 1, paddingBottom: 1 }}
+							container
+							spacing={1}
+							margin={0}
+							width={'100%'}
+						>
+							{activeSlots.map((feed: any, index) => {
+								return (
+									<Grid item xs={4}>
+										<ItemSelect
+											imageSize={imageSize}
+											src={imageUrl[index]}
+											alt={imageAlt[index]}
+											active={activeSlots[index]}
+											index={index}
+											goldTotalCost={itemCost[index]}
+											removeItem={removeItem}
+										/>
+									</Grid>
+								);
+							})}
+						</Grid>
+						<Box width={500}>
+							<DisplayStats
+								stats={itemStats}
+								championStats={championStats}
+								partype={partype}
+								level={level}
+								goldCost={totalCost}
+							></DisplayStats>
+						</Box>
+					</Box>
+				</Grid>
+			</Box>
 			<DisplayItems addItem={addItem}></DisplayItems>
-		</Box>
+		</Stack>
 	);
 }
 

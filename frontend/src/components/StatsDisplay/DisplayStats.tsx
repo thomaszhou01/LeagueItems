@@ -32,14 +32,11 @@ function DisplayStats(props: any) {
 		statGrowth: number,
 		championLevel: number,
 	) {
-		return (
-			Math.round(
-				100 *
-					(baseStat +
-						statGrowth *
-							(championLevel - 1) *
-							(0.7025 + 0.0175 * (championLevel - 1))),
-			) / 100
+		return Math.round(
+			baseStat +
+				statGrowth *
+					(championLevel - 1) *
+					(0.7025 + 0.0175 * (championLevel - 1)),
 		);
 	}
 

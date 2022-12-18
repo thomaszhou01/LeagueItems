@@ -15,7 +15,7 @@ function DisplayItems(props: any) {
 		return parseInt(a.goldTotalCost) - parseInt(b.goldTotalCost);
 	});
 	return (
-		<Box width={'90%'}>
+		<Box width={'50vw'} height={'80vh'} margin={2} sx={{ overflow: 'auto' }}>
 			<h1>Display Items</h1>
 			<TextField
 				label="Search For a Champion"
