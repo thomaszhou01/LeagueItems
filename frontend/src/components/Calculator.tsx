@@ -182,16 +182,11 @@ function Calculator() {
 
 	return (
 		<Stack direction="row">
-			<Box>
+			<Box width={'50vw'}>
 				<Typography variant="h1">Champion</Typography>
 
 				<Grid container>
-					<ChampionSelector
-						setChampStats={updateChampionStats}
-						level={level}
-						changeLevel={updateLevel}
-					/>
-					<Box width={imageSize * 3 + spacing * 4}>
+					<Box width={imageSize * 6 + spacing * 4}>
 						<Grid
 							sx={{ paddingRight: 1, paddingBottom: 1 }}
 							container
@@ -201,7 +196,7 @@ function Calculator() {
 						>
 							{activeSlots.map((feed: any, index) => {
 								return (
-									<Grid item xs={4}>
+									<Grid item xs={2}>
 										<ItemSelect
 											imageSize={imageSize}
 											src={imageUrl[index]}
@@ -215,15 +210,20 @@ function Calculator() {
 								);
 							})}
 						</Grid>
-						<Box width={500}>
-							<DisplayStats
-								stats={itemStats}
-								championStats={championStats}
-								partype={partype}
-								level={level}
-								goldCost={totalCost}
-							></DisplayStats>
-						</Box>
+					</Box>
+					<ChampionSelector
+						setChampStats={updateChampionStats}
+						level={level}
+						changeLevel={updateLevel}
+					/>
+					<Box width={500}>
+						<DisplayStats
+							stats={itemStats}
+							championStats={championStats}
+							partype={partype}
+							level={level}
+							goldCost={totalCost}
+						></DisplayStats>
 					</Box>
 				</Grid>
 			</Box>

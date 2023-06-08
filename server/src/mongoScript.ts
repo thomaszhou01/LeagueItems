@@ -195,6 +195,8 @@ async function main(prismaClient: any) {
 		}
 	});
 
+	console.log('done');
+
 	const allUsers = await prismaClient.item.findMany();
 	console.dir(allUsers, { depth: null });
 }

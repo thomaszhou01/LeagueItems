@@ -25,7 +25,7 @@ import { updateChampionLists } from './RiotAPI/updateChampStats';
 
 import { schema } from './schema';
 
-export var leagueVersion = '12.22.1';
+export var leagueVersion = '13.11.1';
 
 export const server = new ApolloServer({
 	schema,

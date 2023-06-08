@@ -79,6 +79,7 @@ function ItemInfo(props: any) {
 						borderColor: '#d19513',
 						borderWidth: 1,
 						color: 'white',
+						maxWidth: 500,
 					}}
 				>
 					<Grid container>
