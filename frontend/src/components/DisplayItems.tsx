@@ -14,11 +14,13 @@ function DisplayItems(props: any) {
 	sortedData.sort((a: any, b: any) => {
 		return parseInt(a.goldTotalCost) - parseInt(b.goldTotalCost);
 	});
+
+	// can make width={'50vw'}
 	return (
 		<Box width={'50vw'} height={'100vh'} margin={0} sx={{ overflow: 'auto' }}>
-			<h1>Display Items</h1>
+			<h1>Items</h1>
 			<TextField
-				label="Search For a Champion"
+				label="Search For a Item"
 				variant="outlined"
 				value={search}
 				onChange={(data) => {

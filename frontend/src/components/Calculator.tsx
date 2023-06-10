@@ -55,8 +55,6 @@ let itemStats = {
 };
 
 function Calculator() {
-	const imageSize = 150;
-	const spacing = 10;
 	const [activeSlots, setActiveSlots] = useState([
 		false,
 		false,
@@ -180,25 +178,23 @@ function Calculator() {
 		console.log(event.target.value as number);
 	}
 
+	// can make width of Box fluid or width={'50vw'} with direction row
 	return (
-		<Stack direction="row">
-			<Box width={'50vw'}>
+		<Stack direction="row" spacing={10}>
+			<Box>
 				<Typography variant="h1">Champion</Typography>
-
 				<Grid container>
-					<Box width={imageSize * 6 + spacing * 4}>
+					<Grid item xs={12}>
 						<Grid
 							sx={{ paddingRight: 1, paddingBottom: 1 }}
 							container
 							spacing={1}
 							margin={0}
-							width={'100%'}
 						>
 							{activeSlots.map((feed: any, index) => {
 								return (
 									<Grid item xs={2}>
 										<ItemSelect
-											imageSize={imageSize}
 											src={imageUrl[index]}
 											alt={imageAlt[index]}
 											active={activeSlots[index]}
@@ -210,21 +206,25 @@ function Calculator() {
 								);
 							})}
 						</Grid>
-					</Box>
-					<ChampionSelector
-						setChampStats={updateChampionStats}
-						level={level}
-						changeLevel={updateLevel}
-					/>
-					<Box width={500}>
-						<DisplayStats
-							stats={itemStats}
-							championStats={championStats}
-							partype={partype}
+					</Grid>
+					<Grid item xs={12}>
+						<ChampionSelector
+							setChampStats={updateChampionStats}
 							level={level}
-							goldCost={totalCost}
-						></DisplayStats>
-					</Box>
+							changeLevel={updateLevel}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<Box width={500}>
+							<DisplayStats
+								stats={itemStats}
+								championStats={championStats}
+								partype={partype}
+								level={level}
+								goldCost={totalCost}
+							></DisplayStats>
+						</Box>
+					</Grid>
 				</Grid>
 			</Box>
 			<DisplayItems addItem={addItem}></DisplayItems>

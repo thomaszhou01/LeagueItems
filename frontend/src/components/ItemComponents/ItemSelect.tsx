@@ -7,6 +7,7 @@ import {
 	Backdrop,
 	IconButton,
 } from '@mui/material';
+import invisible from '../../assets/invisible.png';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ButtonThemes } from '../../global/Themes';
 
@@ -15,31 +16,16 @@ function ItemSelect(props: any) {
 
 	return (
 		<ThemeProvider theme={ButtonThemes}>
-			<Box
-				width={props.imageSize}
-				height={props.imageSize}
-				sx={{ position: 'relative' }}
-				onMouseOver={() => setShow(true)}
-				onMouseOut={() => setShow(false)}
-			>
-				{props.active ? (
+			<Box onMouseOver={() => setShow(true)} onMouseOut={() => setShow(false)}>
+				<Box border={1} borderColor={'#FFD700'} sx={{ position: 'relative' }}>
 					<Box
+						component="img"
+						alt={props.alt}
+						src={props.active ? props.src : invisible}
 						width={'100%'}
 						height={'100%'}
-						border={1}
-						borderColor={'#FFD700'}
-						sx={{ position: 'relative' }}
-					>
-						<Box
-							component="img"
-							alt={props.alt}
-							src={props.src}
-							width={'100%'}
-							height={'100%'}
-							onClick={(event) => {
-								console.log(props.active);
-							}}
-						/>
+					/>
+					{props.active && (
 						<Backdrop
 							sx={{
 								position: 'absolute',
@@ -66,18 +52,8 @@ function ItemSelect(props: any) {
 								</IconButton>
 							</ButtonGroup>
 						</Backdrop>
-					</Box>
-				) : (
-					<Box
-						width={'100%'}
-						height={'100%'}
-						onClick={(event) => {
-							console.log(props.active);
-						}}
-						border={1}
-						borderColor={'#FFD700'}
-					/>
-				)}
+					)}
+				</Box>
 			</Box>
 		</ThemeProvider>
 	);

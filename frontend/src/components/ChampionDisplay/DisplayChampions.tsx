@@ -1,24 +1,10 @@
 import { useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { getAllChampions } from '../../graphql/getAllChampions';
 import { Box, Grid, Typography, TextField } from '@mui/material';
 import Champion from './Champion';
 
 function DisplayChampions(props: any) {
 	const [search, setSearch] = useState('');
-	const { data, loading, error } = useQuery(getAllChampions);
-	if (loading)
-		return (
-			<Box sx={{ color: 'white', backgroundColor: '#070720' }}>
-				"Loading..."
-			</Box>
-		);
-	if (error)
-		return (
-			<Box sx={{ color: 'white', backgroundColor: '#070720' }}>
-				{error.message}
-			</Box>
-		);
+	const data = props.data;
 
 	function setChampion(image: string, stats: any, partype: string) {
 		props.setImage(image);

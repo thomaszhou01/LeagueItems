@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { getAllChampions } from '../../graphql/getAllChampions';
+import { useQuery, gql } from '@apollo/client';
 import {
 	Avatar,
 	Popover,
@@ -14,6 +16,19 @@ import LevelSelector from './LevelSelector';
 function ChampionSelector(props: any) {
 	const [state, setState] = useState(false);
 	const [imageSource, setImageSource] = useState('');
+	const { data, loading, error } = useQuery(getAllChampions);
+	if (loading)
+		return (
+			<Box sx={{ color: 'white', backgroundColor: '#070720' }}>
+				"Loading..."
+			</Box>
+		);
+	if (error)
+		return (
+			<Box sx={{ color: 'white', backgroundColor: '#070720' }}>
+				{error.message}
+			</Box>
+		);
 
 	function toggleDrawer() {
 		setState(!state);
@@ -51,6 +66,7 @@ function ChampionSelector(props: any) {
 					setImage={championImage}
 					toggleDrawer={toggleDrawer}
 					setStats={setStats}
+					data={data}
 				></DisplayChampions>
 			</Drawer>
 		</React.Fragment>

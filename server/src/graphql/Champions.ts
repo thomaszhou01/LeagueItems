@@ -68,7 +68,11 @@ export const ChampionQuery = extendType({
 		t.nonNull.list.nonNull.field('getAllChampions', {
 			type: 'Champion',
 			resolve(parent, args, context, info) {
-				return context.prisma.champion.findMany();
+				return context.prisma.champion.findMany({
+					orderBy: {
+						name: 'asc',
+					},
+				});
 			},
 		});
 
