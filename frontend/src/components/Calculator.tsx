@@ -180,9 +180,9 @@ function Calculator() {
 
 	// can make width of Box fluid or width={'50vw'} with direction row
 	return (
-		<Stack direction="row" spacing={10}>
-			<Box>
-				<Typography variant="h1">Champion</Typography>
+		<Stack direction="row" spacing={5}>
+			<Box width={'50%'}>
+				<Typography variant="h1">Item Calculator</Typography>
 				<Grid container>
 					<Grid item xs={12}>
 						<Grid
@@ -215,7 +215,7 @@ function Calculator() {
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Box width={500}>
+						<Box width={'100%'}>
 							<DisplayStats
 								stats={itemStats}
 								championStats={championStats}
