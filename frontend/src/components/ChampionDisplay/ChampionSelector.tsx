@@ -45,7 +45,7 @@ function ChampionSelector(props: any) {
 	return (
 		<React.Fragment key={'bottom'}>
 			<Box>
-				<Box>
+				<Box textAlign={'center'}>
 					<IconButton onClick={toggleDrawer}>
 						<Avatar
 							alt="selected champion"
@@ -54,12 +54,10 @@ function ChampionSelector(props: any) {
 						/>
 					</IconButton>
 				</Box>
-				<Box>
-					<LevelSelector
-						level={props.level}
-						changeLevel={props.changeLevel}
-					></LevelSelector>
-				</Box>
+				<LevelSelector
+					level={props.level}
+					changeLevel={props.changeLevel}
+				></LevelSelector>
 			</Box>
 			<Drawer anchor={'bottom'} open={state} onClose={toggleDrawer}>
 				<DisplayChampions

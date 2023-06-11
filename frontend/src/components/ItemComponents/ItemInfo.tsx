@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Popover, Typography, Box, Grid, Stack } from '@mui/material';
 
 function ItemInfo(props: any) {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
+	const passives: any = { id: props.data.id, passives: [] };
 	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -15,12 +15,11 @@ function ItemInfo(props: any) {
 	function filterItemDescription(description: string) {
 		const descriptionArr = description.split(' ');
 		if (descriptionArr[0] == 'passive:') {
-			return (
-				<Typography sx={{ p: 1 }}>
-					{description.split('passive: ')[1]}
-				</Typography>
-			);
+			const split = description.split('passive: ')[1];
+			passives['passives'].push(split);
+			return <Typography sx={{ p: 1 }}>{split}</Typography>;
 		} else if (!parseInt(descriptionArr[0])) {
+			passives['passives'].push(description);
 			return <Typography sx={{ p: 1 }}>{description}</Typography>;
 		} else {
 			return (
@@ -48,6 +47,7 @@ function ItemInfo(props: any) {
 								props.data.imageURL,
 								props.data.id,
 								props.data.goldTotalCost,
+								passives,
 							);
 						}}
 					/>

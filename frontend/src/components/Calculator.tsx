@@ -5,6 +5,7 @@ import ItemSelect from './ItemComponents/ItemSelect';
 import DisplayItems from './DisplayItems';
 import ChampionSelector from './ChampionDisplay/ChampionSelector';
 import DisplayStats from './StatsDisplay/DisplayStats';
+import DisplayPassives from './StatsDisplay/DisplayPassives';
 
 interface Stats {
 	ap: number;
@@ -101,11 +102,14 @@ function Calculator() {
 		championId: 0,
 	});
 
+	const [itemPassives, setItemPassives] = useState<Array<any>>([]);
+	console.log(itemPassives);
 	function addItem(
 		stats: any,
 		itemImgUrl: string,
 		id: string,
 		goldTotalCost: string,
+		passives: any,
 	) {
 		for (let slot in activeSlots) {
 			if (!activeSlots[slot]) {
@@ -134,6 +138,9 @@ function Calculator() {
 					itemStats[key as keyof Stats] += stats[key as keyof Stats];
 				}
 				setTotalCost(totalCost + parseInt(goldTotalCost));
+				setItemPassives((prevPassives) => {
+					return [...prevPassives, passives];
+				});
 				break;
 			}
 		}
@@ -144,6 +151,10 @@ function Calculator() {
 			let data = itemData[index]!;
 			itemStats[key as keyof Stats] -= data[key as keyof Stats];
 		}
+		setItemPassives((prevPassives) => {
+			return prevPassives.filter((itemVal) => itemVal.id !== imageAlt[index]);
+		});
+
 		setItemData((prevData) => {
 			prevData[index] = null;
 			return [...prevData];
@@ -182,7 +193,7 @@ function Calculator() {
 	return (
 		<Stack direction="row" spacing={5}>
 			<Box width={'50%'}>
-				<Typography variant="h1">Item Calculator</Typography>
+				<Typography variant="h2">League of Legends Item Calculator</Typography>
 				<Grid container>
 					<Grid item xs={12}>
 						<Grid
@@ -207,7 +218,16 @@ function Calculator() {
 							})}
 						</Grid>
 					</Grid>
-					<Grid item xs={12}>
+					<Grid item xs={8}>
+						<DisplayStats
+							stats={itemStats}
+							championStats={championStats}
+							partype={partype}
+							level={level}
+							goldCost={totalCost}
+						></DisplayStats>
+					</Grid>
+					<Grid item xs={4}>
 						<ChampionSelector
 							setChampStats={updateChampionStats}
 							level={level}
@@ -215,15 +235,7 @@ function Calculator() {
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Box width={'100%'}>
-							<DisplayStats
-								stats={itemStats}
-								championStats={championStats}
-								partype={partype}
-								level={level}
-								goldCost={totalCost}
-							></DisplayStats>
-						</Box>
+						<DisplayPassives itemPassives={itemPassives} />
 					</Grid>
 				</Grid>
 			</Box>

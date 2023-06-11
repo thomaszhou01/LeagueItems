@@ -20,8 +20,8 @@ function IndividualStat(props: any) {
 				<Box
 					component={'img'}
 					src={props.image}
-					width={32}
-					height={32}
+					width={'2vw'}
+					height={'2vw'}
 					marginRight={2}
 					aria-owns={open ? 'mouse-over-popover' : undefined}
 					aria-haspopup="true"

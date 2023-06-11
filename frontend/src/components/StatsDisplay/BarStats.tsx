@@ -12,6 +12,7 @@ function BarStats(props: any) {
 					top: '50%',
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
+					textShadow: '1px 1px #000000',
 				}}
 			>
 				{props.stat + props.championStats}
