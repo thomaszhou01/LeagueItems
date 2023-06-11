@@ -64,7 +64,10 @@ function IndividualStat(props: any) {
 					}}
 				>
 					<Typography sx={{ p: 1 }}>{props.statName}</Typography>
-					<Typography sx={{ p: 1 }}>{props.stat}</Typography>
+					<Typography sx={{ p: 1 }}>
+						{props.stat +
+							(props.championStats === undefined ? 0 : props.championStats)}
+					</Typography>
 					<Typography sx={{ p: 1 }}>{props.altStat}</Typography>
 				</Stack>
 			</Popover>
