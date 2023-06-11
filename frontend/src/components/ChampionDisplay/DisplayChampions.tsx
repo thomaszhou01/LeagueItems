@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Box, Grid, Typography, TextField } from '@mui/material';
+import {
+	Box,
+	Grid,
+	Typography,
+	TextField,
+	Toolbar,
+	IconButton,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import Champion from './Champion';
 
 function DisplayChampions(props: any) {
@@ -21,16 +29,25 @@ function DisplayChampions(props: any) {
 				overflow: 'auto',
 			}}
 		>
-			<Typography variant="h2">Select a Champion</Typography>
-			<TextField
-				label="Search For a Champion"
-				variant="outlined"
-				value={search}
-				onChange={(data) => {
-					setSearch(data.target.value);
-				}}
-				fullWidth
-			/>
+			<Box width={'99%'}>
+				<Toolbar>
+					<Typography variant="h2" sx={{ flexGrow: 1 }}>
+						Select a Champion
+					</Typography>
+					<IconButton onClick={props.toggleDrawer}>
+						<CloseIcon />
+					</IconButton>
+				</Toolbar>
+				<TextField
+					label="Search For a Champion"
+					variant="outlined"
+					value={search}
+					onChange={(data) => {
+						setSearch(data.target.value);
+					}}
+					fullWidth
+				/>
+			</Box>
 			<Grid container spacing={1}>
 				{data.getAllChampions
 					.filter((feed: any) => {
