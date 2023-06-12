@@ -17,7 +17,12 @@ function DisplayItems(props: any) {
 
 	// can make width={'50vw'}
 	return (
-		<Box width={'50%'} height={'100vh'} margin={0} sx={{ overflow: 'auto' }}>
+		<Box
+			width={props.width}
+			height={'100vh'}
+			margin={0}
+			sx={{ overflow: 'auto' }}
+		>
 			<h1>Items</h1>
 			<TextField
 				label="Search For a Item"

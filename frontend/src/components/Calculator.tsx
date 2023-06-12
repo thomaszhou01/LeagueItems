@@ -194,17 +194,12 @@ function Calculator() {
 		<Stack direction="row" spacing={5}>
 			<Box width={'50%'}>
 				<Typography variant="h2">League of Legends Item Calculator</Typography>
-				<Grid container>
+				<Grid container padding={3}>
 					<Grid item xs={12}>
-						<Grid
-							sx={{ paddingRight: 1, paddingBottom: 1 }}
-							container
-							spacing={1}
-							margin={0}
-						>
+						<Grid container spacing={1}>
 							{activeSlots.map((feed: any, index) => {
 								return (
-									<Grid item xs={2}>
+									<Grid item xs={2} alignContent={'center'}>
 										<ItemSelect
 											src={imageUrl[index]}
 											alt={imageAlt[index]}
@@ -239,7 +234,7 @@ function Calculator() {
 					</Grid>
 				</Grid>
 			</Box>
-			<DisplayItems addItem={addItem}></DisplayItems>
+			<DisplayItems addItem={addItem} width={'50%'}></DisplayItems>
 		</Stack>
 	);
 }
