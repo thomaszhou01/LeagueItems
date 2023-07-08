@@ -4,7 +4,14 @@ import { Box, Typography, Grid, Paper, Button } from '@mui/material';
 
 function DisplayPassives(props: any) {
 	return (
-		<Box height={'30vh'} sx={{ overflow: 'auto' }}>
+		<Box
+			sx={{
+				overflow: 'auto',
+				flex: { xs: -1, lg: 1 },
+				flexBasis: { xs: -1, lg: 0 },
+				height: { xs: '30vh', lg: -1 },
+			}}
+		>
 			<Typography>Unique Passives:</Typography>
 			{props.itemPassives.map((item: any) => {
 				return (

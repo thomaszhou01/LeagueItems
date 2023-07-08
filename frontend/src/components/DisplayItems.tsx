@@ -18,10 +18,9 @@ function DisplayItems(props: any) {
 	// can make width={'50vw'}
 	return (
 		<Box
-			width={props.width}
 			height={'100vh'}
-			margin={0}
-			sx={{ overflow: 'auto' }}
+			marginTop={0}
+			sx={{ overflow: 'auto', width: { xs: '100%', lg: '50%' } }}
 		>
 			<h1>Items</h1>
 			<TextField

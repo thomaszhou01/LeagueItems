@@ -191,8 +191,12 @@ function Calculator() {
 
 	// can make width of Box fluid or width={'50vw'} with direction row
 	return (
-		<Stack direction="row" spacing={5}>
-			<Box width={'50%'}>
+		<Stack sx={{ flexDirection: { xs: 'column', lg: 'row' } }} spacing={5}>
+			<Box
+				sx={{ width: { xs: '100%', lg: '50%' } }}
+				display={'flex'}
+				flexDirection={'column'}
+			>
 				<Typography variant="h2">League of Legends Item Calculator</Typography>
 				<Grid container padding={3}>
 					<Grid item xs={12}>
@@ -229,12 +233,10 @@ function Calculator() {
 							changeLevel={updateLevel}
 						/>
 					</Grid>
-					<Grid item xs={12}>
-						<DisplayPassives itemPassives={itemPassives} />
-					</Grid>
 				</Grid>
+				<DisplayPassives itemPassives={itemPassives} />
 			</Box>
-			<DisplayItems addItem={addItem} width={'50%'}></DisplayItems>
+			<DisplayItems addItem={addItem}></DisplayItems>
 		</Stack>
 	);
 }
