@@ -191,7 +191,7 @@ function Calculator() {
 
 	// can make width of Box fluid or width={'50vw'} with direction row
 	return (
-		<Stack sx={{ flexDirection: { xs: 'column', lg: 'row' } }} spacing={5}>
+		<Stack sx={{ flexDirection: { xs: 'column', lg: 'row' } }}>
 			<Box
 				sx={{ width: { xs: '100%', lg: '50%' } }}
 				display={'flex'}

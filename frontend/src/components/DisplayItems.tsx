@@ -19,7 +19,6 @@ function DisplayItems(props: any) {
 	return (
 		<Box
 			height={'100vh'}
-			marginTop={0}
 			sx={{ overflow: 'auto', width: { xs: '100%', lg: '50%' } }}
 		>
 			<h1>Items</h1>
