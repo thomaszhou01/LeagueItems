@@ -3,13 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { getAllItems } from '../graphql/getAllItems';
 import ItemInfo from './ItemComponents/ItemInfo';
-import { Grid, Box, TextField } from '@mui/material';
+import { Grid, Box, TextField, CircularProgress } from '@mui/material';
 
 function DisplayItems(props: any) {
 	const [search, setSearch] = useState('');
 	const { data, loading, error } = useQuery(getAllItems);
-	if (loading) return <pre>"Loading..."</pre>;
-	if (error) return <pre>{error.message}</pre>;
+
+	if (loading)
+		return (
+			<Box
+				height={'100vh'}
+				sx={{ overflow: 'auto', width: { xs: '100%', lg: '50%' } }}
+			>
+				<CircularProgress />
+			</Box>
+		);
+	if (error)
+		return (
+			<Box
+				height={'100vh'}
+				sx={{ overflow: 'auto', width: { xs: '100%', lg: '50%' } }}
+			>
+				{error.message}
+			</Box>
+		);
+
 	const sortedData = [...data.getAllItems];
 	sortedData.sort((a: any, b: any) => {
 		return parseInt(a.goldTotalCost) - parseInt(b.goldTotalCost);

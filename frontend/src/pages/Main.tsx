@@ -6,9 +6,7 @@ import { darkTheme } from '../global/Themes';
 function Main() {
 	return (
 		<ThemeProvider theme={darkTheme}>
-			<Box>
-				<Calculator />
-			</Box>
+			<Calculator />
 		</ThemeProvider>
 	);
 }
