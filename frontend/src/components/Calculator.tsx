@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Box, Typography, Grid, Button, Stack } from '@mui/material';
 import ItemSelect from './ItemComponents/ItemSelect';
-import DisplayItems from './DisplayItems';
+import DisplayItems from './ItemComponents/DisplayItems';
 import ChampionSelector from './ChampionDisplay/ChampionSelector';
 import DisplayStats from './StatsDisplay/DisplayStats';
 import DisplayPassives from './StatsDisplay/DisplayPassives';

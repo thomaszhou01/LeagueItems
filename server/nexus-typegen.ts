@@ -50,6 +50,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Champion: { // field return type
     id: string; // String!
+    image: string; // String!
     imageURL: string; // String!
     key: string; // String!
     name: string; // String!
@@ -89,6 +90,7 @@ export interface NexusGenFieldTypes {
     from: Array<string | null>; // [String]!
     goldTotalCost: string; // String!
     id: string; // String!
+    image: string; // String!
     imageURL: string; // String!
     into: Array<string | null>; // [String]!
     name: string; // String!
@@ -143,6 +145,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Champion: { // field return type name
     id: 'String'
+    image: 'String'
     imageURL: 'String'
     key: 'String'
     name: 'String'
@@ -182,6 +185,7 @@ export interface NexusGenFieldTypeNames {
     from: 'String'
     goldTotalCost: 'String'
     id: 'String'
+    image: 'String'
     imageURL: 'String'
     into: 'String'
     name: 'String'

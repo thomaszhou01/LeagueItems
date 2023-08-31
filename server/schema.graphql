@@ -4,6 +4,7 @@
 
 type Champion {
   id: String!
+  image: String!
   imageURL: String!
   key: String!
   name: String!
@@ -45,6 +46,7 @@ type Item {
   from: [String]!
   goldTotalCost: String!
   id: String!
+  image: String!
   imageURL: String!
   into: [String]!
   name: String!

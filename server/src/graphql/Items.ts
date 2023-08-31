@@ -16,6 +16,7 @@ export const Item = objectType({
 		t.nonNull.string('goldTotalCost');
 		t.nonNull.list.string('tags');
 		t.nonNull.string('imageURL');
+		t.nonNull.string('image');
 		t.field('stats', {
 			type: 'ItemStats',
 			resolve(parent, args, context) {

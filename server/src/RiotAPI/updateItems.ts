@@ -1,4 +1,5 @@
 import { getItems } from './DataDragon/getItems';
+import axios from 'axios';
 
 function filterDescription(description: String) {
 	let effects = [];
@@ -133,18 +134,40 @@ function assignStats(stats: String[]) {
 	return statsTemplate;
 }
 
+function getBase64(url: any) {
+	return axios
+		.get(url, {
+			responseType: 'arraybuffer',
+		})
+		.then((response) =>
+			Buffer.from(response.data, 'binary').toString('base64'),
+		);
+}
+
 export async function updateItemLists(prismaClient: any) {
 	await prismaClient.$connect();
 	getItems().then(async (response: any) => {
 		const data = response['data'];
 		for (var itemNum in data) {
 			const item = data[itemNum];
-			if (!item['gold']['purchasable'] || item['gold']['total'] == 0) {
+			if (
+				!item['gold']['purchasable'] ||
+				item['gold']['total'] == 0 ||
+				item['maps']['30']
+			) {
 				continue;
 			}
 			console.log(itemNum);
 			const description = filterDescription(item['description']);
 			const stats = assignStats(description);
+			const itemImage =
+				'http://ddragon.leagueoflegends.com/cdn/' +
+				response['version'] +
+				'/img/item/' +
+				itemNum +
+				'.png';
+			const imgBase64 = await getBase64(itemImage);
+
 			await prismaClient.item.upsert({
 				where: {
 					id: itemNum,
@@ -164,6 +187,7 @@ export async function updateItemLists(prismaClient: any) {
 						'/img/item/' +
 						itemNum +
 						'.png',
+					image: imgBase64,
 					stats: {
 						update: stats,
 					},
@@ -183,6 +207,7 @@ export async function updateItemLists(prismaClient: any) {
 						'/img/item/' +
 						itemNum +
 						'.png',
+					image: imgBase64,
 					stats: {
 						create: stats,
 					},

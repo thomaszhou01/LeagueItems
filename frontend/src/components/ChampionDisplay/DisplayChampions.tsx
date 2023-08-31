@@ -61,7 +61,7 @@ function DisplayChampions(props: any) {
 						<Grid item>
 							<Champion
 								alt={feed.id}
-								src={feed.imageURL}
+								src={'data:image/png;base64,' + feed.image}
 								championName={feed.name}
 								stats={feed.stats}
 								partype={feed.partype}

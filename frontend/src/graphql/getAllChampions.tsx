@@ -12,6 +12,7 @@ export const getAllChampions = gql`
 			tags
 			partype
 			imageURL
+			image
 			stats {
 				hp
 				hpperlevel

@@ -40,7 +40,7 @@ function ItemInfo(props: any) {
 				<Box display={'block'}>
 					<img
 						alt={props.data.id}
-						src={props.data.imageURL}
+						src={'data:image/png;base64,' + props.data.image}
 						onClick={(event) => {
 							props.addItem(
 								props.data.stats,
@@ -86,7 +86,7 @@ function ItemInfo(props: any) {
 						<Grid item>
 							<img
 								alt={props.data.id}
-								src={props.data.imageURL}
+								src={'data:image/png;base64,' + props.data.image}
 								style={{ margin: 5 }}
 							/>
 						</Grid>

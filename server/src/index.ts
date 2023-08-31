@@ -25,7 +25,7 @@ import { updateChampionLists } from './RiotAPI/updateChampStats';
 
 import { schema } from './schema';
 
-export var leagueVersion = '13.11.1';
+export var leagueVersion = '13.17.1';
 
 export const server = new ApolloServer({
 	schema,
@@ -37,3 +37,5 @@ const port = process.env.PORT || 4000;
 server.listen({ port }).then(({ url }) => {
 	console.log(`🚀  Server ready at ${url}`);
 });
+
+//npx prisma generate

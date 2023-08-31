@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { getChampions } from './RiotAPI/DataDragon/getChampions';
 import { getItems } from './RiotAPI/DataDragon/getItems';
+import { updateItemLists } from './RiotAPI/updateItems';
+import { updateChampionLists } from './RiotAPI/updateChampStats';
 
 const prisma = new PrismaClient();
 
@@ -139,66 +141,14 @@ function assignStats(stats: String[]) {
 
 async function main(prismaClient: any) {
 	await prismaClient.$connect();
-	getItems().then(async (response: any) => {
-		const data = response['data'];
-		for (var itemNum in data) {
-			const item = data[itemNum];
-			if (!item['gold']['purchasable'] || item['gold']['total'] == 0) {
-				continue;
-			}
-			console.log(itemNum);
-			const description = filterDescription(item['description']);
-			const stats = assignStats(description);
-			await prismaClient.item.upsert({
-				where: {
-					id: itemNum,
-				},
-				update: {
-					id: itemNum,
-					name: item['name'],
-					description: description,
-					plaintext: item['plaintext'],
-					into: item['into'],
-					from: item['from'],
-					goldTotalCost: item['gold']['total'],
-					tags: item['tags'],
-					imageURL:
-						'http://ddragon.leagueoflegends.com/cdn/' +
-						response['version'] +
-						'/img/item/' +
-						itemNum +
-						'.png',
-					stats: {
-						update: stats,
-					},
-				},
-				create: {
-					id: itemNum,
-					name: item['name'],
-					description: description,
-					plaintext: item['plaintext'],
-					into: item['into'],
-					from: item['from'],
-					goldTotalCost: item['gold']['total'],
-					tags: item['tags'],
-					imageURL:
-						'http://ddragon.leagueoflegends.com/cdn/' +
-						response['version'] +
-						'/img/item/' +
-						itemNum +
-						'.png',
-					stats: {
-						create: stats,
-					},
-				},
-			});
-		}
-	});
+	updateItemLists(prismaClient);
+	console.log('done items');
+	updateChampionLists(prismaClient);
 
-	console.log('done');
+	console.log('done champions');
 
-	const allUsers = await prismaClient.item.findMany();
-	console.dir(allUsers, { depth: null });
+	// const allUsers = await prismaClient.item.findMany();
+	// console.dir(allUsers, { depth: null });
 }
 
 main(prisma)

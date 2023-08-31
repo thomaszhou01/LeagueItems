@@ -53,6 +53,7 @@ model Champion {
   tags     String[]
   partype  String
   imageURL String
+  image    String
   stats    ChampionStats?
 }
 
@@ -93,6 +94,7 @@ model Item {
   goldTotalCost Int
   tags          String[]
   imageURL      String
+  image         String
   stats         ItemStats?
 }
 

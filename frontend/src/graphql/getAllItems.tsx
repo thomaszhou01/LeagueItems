@@ -13,6 +13,7 @@ export const getAllItems = gql`
 			goldTotalCost
 			tags
 			imageURL
+			image
 			stats {
 				ap
 				ad

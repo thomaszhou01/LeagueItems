@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
-import { getAllItems } from '../graphql/getAllItems';
-import ItemInfo from './ItemComponents/ItemInfo';
+import { getAllItems } from '../../graphql/getAllItems';
+import ItemInfo from './ItemInfo';
 import { Grid, Box, TextField, CircularProgress } from '@mui/material';
 
 function DisplayItems(props: any) {

@@ -15,6 +15,7 @@ export const Champion = objectType({
 		t.nonNull.list.string('tags');
 		t.nonNull.string('partype');
 		t.nonNull.string('imageURL');
+		t.nonNull.string('image');
 		t.field('stats', {
 			type: 'ChampionStats',
 			resolve(parent, args, context) {
