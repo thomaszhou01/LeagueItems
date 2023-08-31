@@ -36,7 +36,7 @@ function DisplayItems(props: any) {
 	// can make width={'50vw'}
 	return (
 		<Box
-			height={'100vh'}
+			height={{ xs: 'auto', lg: '93vh' }}
 			sx={{ overflow: 'auto', width: { xs: '100%', lg: '50%' } }}
 		>
 			<h1>Items</h1>

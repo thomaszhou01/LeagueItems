@@ -7,22 +7,29 @@ function DisplayPassives(props: any) {
 		<Box
 			sx={{
 				overflow: 'auto',
+				direction: 'rtl',
 				flex: { xs: -1, lg: 1 },
 				flexBasis: { xs: -1, lg: 0 },
 				height: { xs: '30vh', lg: -1 },
 			}}
 		>
-			<Typography>Unique Passives:</Typography>
-			{props.itemPassives.map((item: any) => {
-				return (
-					<Box marginBottom={2}>
-						{item['passives'].map((passives: any) => {
-							return <Typography> -{passives}</Typography>;
-						})}
-					</Box>
-				);
-				// return <Typography> {item['passives']}</Typography>;
-			})}
+			<Box
+				sx={{
+					direction: 'ltr',
+				}}
+			>
+				<Typography>Unique Passives:</Typography>
+				{props.itemPassives.map((item: any) => {
+					return (
+						<Box marginBottom={2}>
+							{item['passives'].map((passives: any) => {
+								return <Typography> -{passives}</Typography>;
+							})}
+						</Box>
+					);
+					// return <Typography> {item['passives']}</Typography>;
+				})}
+			</Box>
 		</Box>
 	);
 }

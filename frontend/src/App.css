@@ -1,11 +1,18 @@
 body {
 	margin: 0;
 	height: 100%;
-}
-
-body {
 	display: flex;
 	justify-content: center;
 	background-color: rgb(7, 7, 32);
 	color: #cfcfcf;
 }
+/* html::-webkit-scrollbar {
+	width: 20px;
+}
+html::-webkit-scrollbar-track {
+	background-color: black;
+}
+html::-webkit-scrollbar-thumb {
+	background: #4e4e4e;
+	border-radius: 25px;
+} */

@@ -4,7 +4,7 @@ import { Box, Button, Typography } from '@mui/material';
 function Champion(props: any) {
 	return (
 		<Button>
-			<Box>
+			<Box width={'100%'} height={'100%'} overflow={'visible'}>
 				<Box
 					component="img"
 					alt={props.alt}
@@ -12,8 +12,12 @@ function Champion(props: any) {
 					onClick={() =>
 						props.setChampion(props.src, props.stats, props.partype, props.name)
 					}
+					width={'100%'}
+					height={'100%'}
 				/>
-				<Typography>{props.championName}</Typography>
+				<Typography fontSize={{ xs: '2vw', md: '1vw', lg: '0.75vw' }}>
+					{props.championName}
+				</Typography>
 			</Box>
 		</Button>
 	);

@@ -63,7 +63,7 @@ function DisplayChampions(props: any) {
 						}
 					})
 					.map((feed: any) => (
-						<Grid item>
+						<Grid item xs={3} md={2} lg={1}>
 							<Champion
 								alt={feed.id}
 								name={feed.name}
