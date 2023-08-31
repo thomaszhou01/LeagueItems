@@ -16,44 +16,50 @@ function ItemSelect(props: any) {
 
 	return (
 		<ThemeProvider theme={ButtonThemes}>
-			<Box onMouseOver={() => setShow(true)} onMouseOut={() => setShow(false)}>
-				<Box border={1} borderColor={'#FFD700'} sx={{ position: 'relative' }}>
-					<Box
-						component="img"
-						alt={props.alt}
-						src={props.active ? props.src : invisible}
-						width={'100%'}
-						height={'100%'}
-					/>
-					{props.active && (
-						<Backdrop
+			<Box
+				border={1}
+				borderColor={'#FFD700'}
+				sx={{ position: 'relative' }}
+				onMouseOver={() => setShow(true)}
+				onMouseOut={() => setShow(false)}
+				width={'100%'}
+				height={'100%'}
+			>
+				<Box
+					component="img"
+					alt={props.alt}
+					src={props.active ? props.src : invisible}
+					width={'100%'}
+					height={'100%'}
+				/>
+				{props.active && (
+					<Backdrop
+						sx={{
+							position: 'absolute',
+							color: '#fff',
+						}}
+						open={show}
+					>
+						<ButtonGroup
 							sx={{
 								position: 'absolute',
-								color: '#fff',
+								top: '50%',
+								left: '50%',
+								transform: 'translate(-50%, -50%)',
 							}}
-							open={show}
+							variant="outlined"
 						>
-							<ButtonGroup
-								sx={{
-									position: 'absolute',
-									top: '50%',
-									left: '50%',
-									transform: 'translate(-50%, -50%)',
-								}}
-								variant="outlined"
+							<IconButton
+								color="primary"
+								onClick={() =>
+									props.removeItem(props.index, props.goldTotalCost)
+								}
 							>
-								<IconButton
-									color="primary"
-									onClick={() =>
-										props.removeItem(props.index, props.goldTotalCost)
-									}
-								>
-									<DeleteIcon />
-								</IconButton>
-							</ButtonGroup>
-						</Backdrop>
-					)}
-				</Box>
+								<DeleteIcon />
+							</IconButton>
+						</ButtonGroup>
+					</Backdrop>
+				)}
 			</Box>
 		</ThemeProvider>
 	);

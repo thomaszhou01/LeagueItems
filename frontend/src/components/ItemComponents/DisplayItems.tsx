@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { getAllItems } from '../../graphql/getAllItems';
 import ItemInfo from './ItemInfo';
-import { Grid, Box, TextField, CircularProgress } from '@mui/material';
+import { Grid, Box, TextField, LinearProgress } from '@mui/material';
 
 function DisplayItems(props: any) {
 	const [search, setSearch] = useState('');
@@ -15,7 +15,7 @@ function DisplayItems(props: any) {
 				height={'100vh'}
 				sx={{ overflow: 'auto', width: { xs: '100%', lg: '50%' } }}
 			>
-				<CircularProgress />
+				<LinearProgress />
 			</Box>
 		);
 	if (error)

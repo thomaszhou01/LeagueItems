@@ -197,8 +197,19 @@ function Calculator() {
 				display={'flex'}
 				flexDirection={'column'}
 			>
-				<Typography variant="h2">League of Legends Item Calculator</Typography>
-				<Grid container padding={3}>
+				<Grid
+					container
+					paddingLeft={{ xs: 1, lg: 3 }}
+					paddingRight={{ xs: 1, lg: 3 }}
+					paddingBottom={{ xs: 1, lg: 3 }}
+				>
+					<Grid item xs={12}>
+						<ChampionSelector
+							setChampStats={updateChampionStats}
+							level={level}
+							changeLevel={updateLevel}
+						/>
+					</Grid>
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							{activeSlots.map((feed: any, index) => {
@@ -217,7 +228,7 @@ function Calculator() {
 							})}
 						</Grid>
 					</Grid>
-					<Grid item xs={8}>
+					<Grid item xs={12}>
 						<DisplayStats
 							stats={itemStats}
 							championStats={championStats}
@@ -225,13 +236,6 @@ function Calculator() {
 							level={level}
 							goldCost={totalCost}
 						></DisplayStats>
-					</Grid>
-					<Grid item xs={4}>
-						<ChampionSelector
-							setChampStats={updateChampionStats}
-							level={level}
-							changeLevel={updateLevel}
-						/>
 					</Grid>
 				</Grid>
 				<DisplayPassives itemPassives={itemPassives} />

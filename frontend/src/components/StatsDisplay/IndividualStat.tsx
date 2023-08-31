@@ -15,13 +15,13 @@ function IndividualStat(props: any) {
 	const open = Boolean(anchorEl);
 
 	return (
-		<Grid item xs={3}>
+		<Grid item xs={3} paddingTop={1} paddingBottom={1}>
 			<Box sx={{ display: 'flex', alignItems: 'center' }}>
 				<Box
 					component={'img'}
 					src={props.image}
-					width={'2vw'}
-					height={'2vw'}
+					width={{ xs: '6vw', lg: '2vw' }}
+					height={{ xs: '6vw', lg: '2vw' }}
 					marginRight={2}
 					aria-owns={open ? 'mouse-over-popover' : undefined}
 					aria-haspopup="true"

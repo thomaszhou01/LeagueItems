@@ -58,13 +58,7 @@ function DisplayStats(props: any) {
 	}
 
 	return (
-		<Grid
-			sx={{ paddingRight: 1, paddingBottom: 1 }}
-			container
-			spacing={1}
-			margin={0}
-			width={'100%'}
-		>
+		<Grid container margin={0} width={'100%'}>
 			<IndividualStat
 				image={ad}
 				stat={props.stats['ad']}

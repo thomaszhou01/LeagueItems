@@ -14,8 +14,13 @@ function DisplayChampions(props: any) {
 	const [search, setSearch] = useState('');
 	const data = props.data;
 
-	function setChampion(image: string, stats: any, partype: string) {
-		props.setImage(image);
+	function setChampion(
+		image: string,
+		stats: any,
+		partype: string,
+		champName: string,
+	) {
+		props.setImage(image, champName);
 		props.setStats(stats, partype);
 		props.toggleDrawer();
 	}
@@ -61,6 +66,7 @@ function DisplayChampions(props: any) {
 						<Grid item>
 							<Champion
 								alt={feed.id}
+								name={feed.name}
 								src={'data:image/png;base64,' + feed.image}
 								championName={feed.name}
 								stats={feed.stats}

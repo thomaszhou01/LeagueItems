@@ -10,7 +10,7 @@ function Champion(props: any) {
 					alt={props.alt}
 					src={props.src}
 					onClick={() =>
-						props.setChampion(props.src, props.stats, props.partype)
+						props.setChampion(props.src, props.stats, props.partype, props.name)
 					}
 				/>
 				<Typography>{props.championName}</Typography>
