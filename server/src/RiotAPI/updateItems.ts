@@ -134,6 +134,82 @@ function assignStats(stats: String[]) {
 	return statsTemplate;
 }
 
+function assignMythicStats(stats: any, type: string) {
+	let statsTemplate = {
+		ap: 0,
+		armorPen: 0,
+		lethality: 0,
+		ad: 0,
+		as: 0,
+		crit: 0,
+		lifeSteal: 0,
+		flatMagicPen: 0,
+		percentMagicPen: 0,
+		omnivamp: 0,
+		physicalVamp: 0,
+		armor: 0,
+		hp: 0,
+		healthRegen: 0,
+		mr: 0,
+		tenacity: 0,
+		haste: 0,
+		mana: 0,
+		resourceRegen: 0,
+		ms: 0,
+		range: 0,
+	};
+	if (type != 'MYTHIC') {
+		return statsTemplate;
+	}
+
+	stats = stats['passives'];
+	for (let stat in stats) {
+		if (!stats[stat]['mythic']) {
+			continue;
+		}
+		const mythicPassive = stats[stat]['stats'];
+		for (let specificStat in mythicPassive) {
+			for (let specificStatType in mythicPassive[specificStat]) {
+				const val = mythicPassive[specificStat][specificStatType];
+				if (val == 0) {
+					continue;
+				}
+
+				if (specificStat == 'abilityPower') {
+					statsTemplate['ap'] += val;
+				} else if (specificStat == 'armorPenetration') {
+					statsTemplate['armorPen'] += val;
+				} else if (specificStat == 'lethality') {
+					statsTemplate['lethality'] += val;
+				} else if (specificStat == 'attackDamage') {
+					statsTemplate['ad'] += val;
+				} else if (specificStat == 'omnivamp') {
+					statsTemplate['omnivamp'] += val;
+				} else if (specificStat == 'movespeed') {
+					statsTemplate['ms'] += val;
+				} else if (specificStat == 'abilityHaste') {
+					statsTemplate['haste'] += val;
+				} else if (specificStat == 'magicPenetration') {
+					if (specificStatType == 'flat') {
+						statsTemplate['flatMagicPen'] += val;
+					} else {
+						statsTemplate['percentMagicPen'] += val;
+					}
+				} else if (specificStat == 'health') {
+					statsTemplate['hp'] += val;
+				} else if (specificStat == 'tenacity') {
+					statsTemplate['tenacity'] += val;
+				} else if (specificStat == 'armor') {
+					statsTemplate['armor'] += val;
+				} else if (specificStat == 'magicResistance') {
+					statsTemplate['mr'] += val;
+				}
+			}
+		}
+	}
+	return statsTemplate;
+}
+
 function getBase64(url: any) {
 	return axios
 		.get(url, {
@@ -147,22 +223,29 @@ function getBase64(url: any) {
 export async function updateItemLists(prismaClient: any) {
 	await prismaClient.$connect();
 	getItems().then(async (response: any) => {
-		const data = response['data'];
+		const data = response[0]['data'];
 		for (var itemNum in data) {
 			const item = data[itemNum];
 			if (
 				!item['gold']['purchasable'] ||
 				item['gold']['total'] == 0 ||
-				item['maps']['30']
+				item['maps']['30'] ||
+				!item['maps']['11'] ||
+				itemNum == '1040'
 			) {
 				continue;
 			}
-			console.log(itemNum);
+			console.log(itemNum, response[1][itemNum]['name']);
 			const description = filterDescription(item['description']);
 			const stats = assignStats(description);
+			const type = response[1][itemNum]['rank'][0]
+				? response[1][itemNum]['rank'][0]
+				: 'LEGENDARY';
+			const mythicStats = assignMythicStats(response[1][itemNum], type);
+
 			const itemImage =
 				'http://ddragon.leagueoflegends.com/cdn/' +
-				response['version'] +
+				response[0]['version'] +
 				'/img/item/' +
 				itemNum +
 				'.png';
@@ -183,13 +266,17 @@ export async function updateItemLists(prismaClient: any) {
 					tags: item['tags'],
 					imageURL:
 						'http://ddragon.leagueoflegends.com/cdn/' +
-						response['version'] +
+						response[0]['version'] +
 						'/img/item/' +
 						itemNum +
 						'.png',
 					image: imgBase64,
+					type: type,
 					stats: {
 						update: stats,
+					},
+					mythicStats: {
+						update: mythicStats,
 					},
 				},
 				create: {
@@ -203,13 +290,17 @@ export async function updateItemLists(prismaClient: any) {
 					tags: item['tags'],
 					imageURL:
 						'http://ddragon.leagueoflegends.com/cdn/' +
-						response['version'] +
+						response[0]['version'] +
 						'/img/item/' +
 						itemNum +
 						'.png',
 					image: imgBase64,
+					type: type,
 					stats: {
 						create: stats,
+					},
+					mythicStats: {
+						create: mythicStats,
 					},
 				},
 			});

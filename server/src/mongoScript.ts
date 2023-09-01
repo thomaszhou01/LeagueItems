@@ -143,7 +143,7 @@ async function main(prismaClient: any) {
 	await prismaClient.$connect();
 	updateItemLists(prismaClient);
 	console.log('done items');
-	updateChampionLists(prismaClient);
+	// updateChampionLists(prismaClient);
 
 	console.log('done champions');
 

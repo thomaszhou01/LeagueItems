@@ -34,6 +34,7 @@ export interface NexusGenObjects {
   ItemStats: prisma.ItemStats;
   Link: prisma.Link;
   Mutation: {};
+  MythicStats: prisma.MythicStats;
   Query: {};
 }
 
@@ -93,11 +94,13 @@ export interface NexusGenFieldTypes {
     image: string; // String!
     imageURL: string; // String!
     into: Array<string | null>; // [String]!
+    mythicStats: NexusGenRootTypes['MythicStats'] | null; // MythicStats
     name: string; // String!
     objectID: string; // String!
     plaintext: string; // String!
     stats: NexusGenRootTypes['ItemStats'] | null; // ItemStats
     tags: Array<string | null>; // [String]!
+    type: string; // String!
   }
   ItemStats: { // field return type
     ad: number; // Float!
@@ -132,6 +135,31 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addChamp: string; // String!
     post: NexusGenRootTypes['Link']; // Link!
+  }
+  MythicStats: { // field return type
+    ad: number; // Float!
+    ap: number; // Float!
+    armor: number; // Float!
+    armorPen: number; // Float!
+    as: number; // Float!
+    crit: number; // Float!
+    flatMagicPen: number; // Float!
+    haste: number; // Float!
+    healthRegen: number; // Float!
+    hp: number; // Float!
+    item: NexusGenRootTypes['Item'] | null; // Item
+    itemId: string | null; // String
+    lethality: number; // Float!
+    lifeSteal: number; // Float!
+    mana: number; // Float!
+    mr: number; // Float!
+    ms: number; // Float!
+    omnivamp: number; // Float!
+    percentMagicPen: number; // Float!
+    physicalVamp: number; // Float!
+    range: number; // Float!
+    resourceRegen: number; // Float!
+    tenacity: number; // Float!
   }
   Query: { // field return type
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
@@ -188,11 +216,13 @@ export interface NexusGenFieldTypeNames {
     image: 'String'
     imageURL: 'String'
     into: 'String'
+    mythicStats: 'MythicStats'
     name: 'String'
     objectID: 'String'
     plaintext: 'String'
     stats: 'ItemStats'
     tags: 'String'
+    type: 'String'
   }
   ItemStats: { // field return type name
     ad: 'Float'
@@ -227,6 +257,31 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addChamp: 'String'
     post: 'Link'
+  }
+  MythicStats: { // field return type name
+    ad: 'Float'
+    ap: 'Float'
+    armor: 'Float'
+    armorPen: 'Float'
+    as: 'Float'
+    crit: 'Float'
+    flatMagicPen: 'Float'
+    haste: 'Float'
+    healthRegen: 'Float'
+    hp: 'Float'
+    item: 'Item'
+    itemId: 'String'
+    lethality: 'Float'
+    lifeSteal: 'Float'
+    mana: 'Float'
+    mr: 'Float'
+    ms: 'Float'
+    omnivamp: 'Float'
+    percentMagicPen: 'Float'
+    physicalVamp: 'Float'
+    range: 'Float'
+    resourceRegen: 'Float'
+    tenacity: 'Float'
   }
   Query: { // field return type name
     feed: 'Link'

@@ -1,35 +1,41 @@
-import {
-	AppBar,
-	Box,
-	Button,
-	Drawer,
-	IconButton,
-	Slide,
-	Toolbar,
-	Typography,
-	useScrollTrigger,
-} from '@mui/material';
+import { AppBar, Box, Button, Toolbar } from '@mui/material';
 import React, { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 function Navbar(props: any) {
+	const [window, setWindow] = useState(0);
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
+			<AppBar
+				position="static"
+				color="secondary"
+				enableColorOnDark
+				style={{ boxShadow: 'none', backgroundImage: 'none' }}
+			>
 				<Toolbar>
-					<IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="menu"
-						sx={{ mr: 2 }}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						League of Legends Item Calculator
-					</Typography>
+					<Button variant={'text'} onClick={() => setWindow(0)}>
+						<Link
+							style={{
+								color: 'inherit',
+								textDecoration: 'none',
+							}}
+							to="/"
+						>
+							Item Calculator
+						</Link>
+					</Button>
+					<Box sx={{ flexGrow: 1 }} />
+					<Button variant={'text'} onClick={() => setWindow(1)}>
+						<Link
+							style={{
+								color: 'inherit',
+								textDecoration: 'none',
+							}}
+							to="/about"
+						>
+							About
+						</Link>
+					</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>

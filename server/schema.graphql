@@ -49,11 +49,13 @@ type Item {
   image: String!
   imageURL: String!
   into: [String]!
+  mythicStats: MythicStats
   name: String!
   objectID: String!
   plaintext: String!
   stats: ItemStats
   tags: [String]!
+  type: String!
 }
 
 type ItemStats {
@@ -91,6 +93,32 @@ type Link {
 type Mutation {
   addChamp: String!
   post(description: String!, url: String!): Link!
+}
+
+type MythicStats {
+  ad: Float!
+  ap: Float!
+  armor: Float!
+  armorPen: Float!
+  as: Float!
+  crit: Float!
+  flatMagicPen: Float!
+  haste: Float!
+  healthRegen: Float!
+  hp: Float!
+  item: Item
+  itemId: String
+  lethality: Float!
+  lifeSteal: Float!
+  mana: Float!
+  mr: Float!
+  ms: Float!
+  omnivamp: Float!
+  percentMagicPen: Float!
+  physicalVamp: Float!
+  range: Float!
+  resourceRegen: Float!
+  tenacity: Float!
 }
 
 type Query {

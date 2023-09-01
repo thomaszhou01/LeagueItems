@@ -3,7 +3,7 @@ body {
 	height: 100%;
 	display: flex;
 	justify-content: center;
-	background-color: rgb(7, 7, 32);
+	background-color: #070720;
 	color: #cfcfcf;
 }
 /* html::-webkit-scrollbar {

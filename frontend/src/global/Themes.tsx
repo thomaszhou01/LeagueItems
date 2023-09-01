@@ -11,6 +11,12 @@ export const ButtonThemes = createTheme({
 export const darkTheme = createTheme({
 	palette: {
 		mode: 'dark',
+		primary: {
+			main: '#cfcfcf',
+		},
+		secondary: {
+			main: '#001F41',
+		},
 	},
 	typography: {
 		fontFamily: 'Merriweather Sans, sans-serif',

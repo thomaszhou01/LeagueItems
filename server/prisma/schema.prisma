@@ -84,8 +84,8 @@ model ChampionStats {
 }
 
 model Item {
-  objectID      String     @id @default(auto()) @map("_id") @db.ObjectId
-  id            String     @unique
+  objectID      String       @id @default(auto()) @map("_id") @db.ObjectId
+  id            String       @unique
   name          String
   description   String[]
   plaintext     String
@@ -95,10 +95,39 @@ model Item {
   tags          String[]
   imageURL      String
   image         String
+  type          String
+  mythicStats   MythicStats?
   stats         ItemStats?
 }
 
 model ItemStats {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  item            Item?  @relation(fields: [itemId], references: [objectID])
+  itemId          String @unique @db.ObjectId
+  ap              Float
+  armorPen        Float
+  lethality       Float
+  ad              Float
+  as              Float
+  crit            Float
+  lifeSteal       Float
+  flatMagicPen    Float
+  percentMagicPen Float
+  omnivamp        Float
+  physicalVamp    Float
+  armor           Float
+  hp              Float
+  healthRegen     Float
+  mr              Float
+  tenacity        Float
+  haste           Float
+  mana            Float
+  resourceRegen   Float
+  ms              Float
+  range           Float
+}
+
+model MythicStats {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
   item            Item?  @relation(fields: [itemId], references: [objectID])
   itemId          String @unique @db.ObjectId
