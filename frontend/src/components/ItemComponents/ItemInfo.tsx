@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Popover, Typography, Box, Grid, Stack } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Popover, Typography, Box, Grid, Stack, Button } from '@mui/material';
 
 function ItemInfo(props: any) {
-	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+	const [width, setWidth] = useState<number>(window.innerWidth);
+
 	const passives: any = { id: props.data.id, passives: [] };
 	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -28,32 +30,84 @@ function ItemInfo(props: any) {
 		}
 	}
 
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+
+	useEffect(() => {
+		window.addEventListener('resize', handleWindowSizeChange);
+		return () => {
+			window.removeEventListener('resize', handleWindowSizeChange);
+		};
+	}, []);
+
+	const isMobile = width <= 768;
+
 	const open = Boolean(anchorEl);
 	return (
 		<Grid item>
-			<Typography
-				aria-owns={open ? 'mouse-over-popover' : undefined}
-				aria-haspopup="true"
-				onMouseEnter={handlePopoverOpen}
-				onMouseLeave={handlePopoverClose}
-			>
-				<Box display={'block'}>
-					<img
-						alt={props.data.id}
-						src={'data:image/png;base64,' + props.data.image}
-						onClick={(event) => {
-							props.addItem(
-								props.data.stats,
-								props.data.imageURL,
-								props.data.id,
-								props.data.goldTotalCost,
-								passives,
-							);
-						}}
-					/>
-					<Typography>{props.data.goldTotalCost}</Typography>
+			{isMobile ? (
+				<Box
+					aria-owns={open ? 'mouse-over-popover' : undefined}
+					aria-haspopup="true"
+					onMouseLeave={handlePopoverClose}
+				>
+					<Box display={'grid'}>
+						<img
+							alt={props.data.id}
+							src={'data:image/png;base64,' + props.data.image}
+							onClick={(event) => {
+								props.addItem(
+									props.data.stats,
+									props.data.imageURL,
+									props.data.id,
+									props.data.goldTotalCost,
+									passives,
+								);
+							}}
+						/>
+						<Button
+							onClick={(event) => {
+								if (anchorEl == null) {
+									handlePopoverOpen(event);
+								} else {
+									handlePopoverClose();
+								}
+							}}
+							variant="contained"
+							sx={{ backgroundColor: '#001F41', color: '#cfcfcf' }}
+						>
+							{props.data.goldTotalCost}
+						</Button>
+					</Box>
 				</Box>
-			</Typography>
+			) : (
+				<Box
+					aria-owns={open ? 'mouse-over-popover' : undefined}
+					aria-haspopup="true"
+					onMouseEnter={handlePopoverOpen}
+					onMouseLeave={handlePopoverClose}
+				>
+					<Box display={'grid'}>
+						<img
+							alt={props.data.id}
+							src={'data:image/png;base64,' + props.data.image}
+							onClick={(event) => {
+								props.addItem(
+									props.data.stats,
+									props.data.imageURL,
+									props.data.id,
+									props.data.goldTotalCost,
+									passives,
+								);
+							}}
+						/>
+						<Typography textAlign={'center'}>
+							{props.data.goldTotalCost}
+						</Typography>
+					</Box>
+				</Box>
+			)}
 			<Popover
 				id="mouse-over-popover"
 				sx={{

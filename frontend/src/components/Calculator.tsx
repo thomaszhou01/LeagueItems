@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Box, Typography, Grid, Button, Stack } from '@mui/material';
 import ItemSelect from './ItemComponents/ItemSelect';
@@ -30,30 +30,6 @@ interface Stats {
 	resourceRegen: number;
 	ms: number;
 }
-
-let itemStats = {
-	ad: 0,
-	ap: 0,
-	armorPen: 0,
-	lethality: 0,
-	as: 0,
-	crit: 0,
-	lifeSteal: 0,
-	flatMagicPen: 0,
-	percentMagicPen: 0,
-	omnivamp: 0,
-	physicalVamp: 0,
-	armor: 0,
-	hp: 0,
-	healthRegen: 0,
-	mr: 0,
-	tenacity: 0,
-	haste: 0,
-	range: 0,
-	mana: 0,
-	resourceRegen: 0,
-	ms: 0,
-};
 
 function Calculator() {
 	const [activeSlots, setActiveSlots] = useState([
@@ -102,8 +78,31 @@ function Calculator() {
 		championId: 0,
 	});
 
+	const [itemStats, setItemStats] = useState({
+		ad: 0,
+		ap: 0,
+		armorPen: 0,
+		lethality: 0,
+		as: 0,
+		crit: 0,
+		lifeSteal: 0,
+		flatMagicPen: 0,
+		percentMagicPen: 0,
+		omnivamp: 0,
+		physicalVamp: 0,
+		armor: 0,
+		hp: 0,
+		healthRegen: 0,
+		mr: 0,
+		tenacity: 0,
+		haste: 0,
+		range: 0,
+		mana: 0,
+		resourceRegen: 0,
+		ms: 0,
+	});
+
 	const [itemPassives, setItemPassives] = useState<Array<any>>([]);
-	console.log(itemPassives);
 	function addItem(
 		stats: any,
 		itemImgUrl: string,
@@ -179,14 +178,12 @@ function Calculator() {
 	}
 
 	function updateChampionStats(stats: any, partype: any) {
-		console.log(partype);
 		setPartype(partype);
 		setChampionStats(stats);
 	}
 
 	function updateLevel(event: any) {
 		setLevel(event.target.value as number);
-		console.log(event.target.value as number);
 	}
 
 	// can make width of Box fluid or width={'50vw'} with direction row
