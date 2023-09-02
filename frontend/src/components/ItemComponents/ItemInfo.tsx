@@ -59,7 +59,7 @@ function ItemInfo(props: any) {
 							onClick={(event) => {
 								props.addItem(
 									props.data.stats,
-									props.data.imageURL,
+									'data:image/png;base64,' + props.data.image,
 									props.data.id,
 									props.data.goldTotalCost,
 									passives,
@@ -75,7 +75,7 @@ function ItemInfo(props: any) {
 								}
 							}}
 							variant="contained"
-							sx={{ backgroundColor: '#001F41', color: '#cfcfcf' }}
+							color="secondary"
 						>
 							{props.data.goldTotalCost}
 						</Button>
@@ -95,7 +95,7 @@ function ItemInfo(props: any) {
 							onClick={(event) => {
 								props.addItem(
 									props.data.stats,
-									props.data.imageURL,
+									'data:image/png;base64,' + props.data.image,
 									props.data.id,
 									props.data.goldTotalCost,
 									passives,
