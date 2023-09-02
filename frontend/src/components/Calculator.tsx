@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Box, Typography, Grid, Button, Stack } from '@mui/material';
+import { Box, Typography, Grid, Button, Stack, Snackbar } from '@mui/material';
 import ItemSelect from './ItemComponents/ItemSelect';
 import DisplayItems from './ItemComponents/DisplayItems';
 import ChampionSelector from './ChampionDisplay/ChampionSelector';
@@ -31,7 +31,7 @@ interface Stats {
 	ms: number;
 }
 
-function Calculator() {
+function Calculator(props: any) {
 	const [activeSlots, setActiveSlots] = useState([
 		false,
 		false,
@@ -54,6 +54,8 @@ function Calculator() {
 	const [totalCost, setTotalCost] = useState(0);
 	const [partype, setPartype] = useState('');
 	const [level, setLevel] = useState(1);
+	const [snackbar, setSnackbar] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [championStats, setChampionStats] = useState({
 		hp: 0,
 		hpperlevel: 0,
@@ -109,6 +111,7 @@ function Calculator() {
 		id: string,
 		goldTotalCost: string,
 		passives: any,
+		name: string,
 	) {
 		for (let slot in activeSlots) {
 			if (!activeSlots[slot]) {
@@ -143,6 +146,13 @@ function Calculator() {
 				break;
 			}
 		}
+		setSnackbar(() => {
+			if (itemPassives.length != 6) {
+				return true;
+			}
+			return false;
+		});
+		setSnackbarMessage(name + ' Added');
 	}
 
 	function removeItem(index: number, cost: string) {
@@ -184,6 +194,10 @@ function Calculator() {
 
 	function updateLevel(event: any) {
 		setLevel(event.target.value as number);
+	}
+
+	function snackbarClose() {
+		setSnackbar(false);
 	}
 
 	// can make width of Box fluid or width={'50vw'} with direction row
@@ -238,6 +252,13 @@ function Calculator() {
 				<DisplayPassives itemPassives={itemPassives} />
 			</Box>
 			<DisplayItems addItem={addItem}></DisplayItems>
+			<Snackbar
+				open={snackbar}
+				autoHideDuration={1000}
+				onClose={snackbarClose}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				message={snackbarMessage}
+			/>
 		</Stack>
 	);
 }

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Popover, Typography, Box, Grid, Stack, Button } from '@mui/material';
+import { MobileContext } from '../../pages/Main';
 
 function ItemInfo(props: any) {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-	const [width, setWidth] = useState<number>(window.innerWidth);
-
-	const passives: any = { id: props.data.id, passives: [] };
+	const isMobile = useContext(MobileContext);
+	const passives: any = {
+		id: props.data.id,
+		img: 'data:image/png;base64,' + props.data.image,
+		passives: [],
+	};
 	const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -30,19 +34,6 @@ function ItemInfo(props: any) {
 		}
 	}
 
-	function handleWindowSizeChange() {
-		setWidth(window.innerWidth);
-	}
-
-	useEffect(() => {
-		window.addEventListener('resize', handleWindowSizeChange);
-		return () => {
-			window.removeEventListener('resize', handleWindowSizeChange);
-		};
-	}, []);
-
-	const isMobile = width <= 768;
-
 	const open = Boolean(anchorEl);
 	return (
 		<Grid item>
@@ -63,6 +54,7 @@ function ItemInfo(props: any) {
 									props.data.id,
 									props.data.goldTotalCost,
 									passives,
+									props.data.name,
 								);
 							}}
 						/>
@@ -99,6 +91,7 @@ function ItemInfo(props: any) {
 									props.data.id,
 									props.data.goldTotalCost,
 									passives,
+									props.data.name,
 								);
 							}}
 						/>

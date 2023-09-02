@@ -47,7 +47,6 @@ function DisplayItems(props: any) {
 		setFilter(event.target.value as string);
 	}
 
-	// can make width={'50vw'}
 	return (
 		<Box
 			height={{ xs: 'auto', lg: '93vh' }}
