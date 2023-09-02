@@ -3,10 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { getAllItems } from '../../graphql/getAllItems';
 import ItemInfo from './ItemInfo';
-import { Grid, Box, TextField, LinearProgress } from '@mui/material';
+import {
+	Grid,
+	Box,
+	TextField,
+	LinearProgress,
+	Select,
+	FormControl,
+	InputLabel,
+	MenuItem,
+} from '@mui/material';
 
 function DisplayItems(props: any) {
 	const [search, setSearch] = useState('');
+	const [filter, setFilter] = useState('');
 	const { data, loading, error } = useQuery(getAllItems);
 
 	if (loading)
@@ -33,6 +43,10 @@ function DisplayItems(props: any) {
 		return parseInt(a.goldTotalCost) - parseInt(b.goldTotalCost);
 	});
 
+	function changeFilter(event: any) {
+		setFilter(event.target.value as string);
+	}
+
 	// can make width={'50vw'}
 	return (
 		<Box
@@ -40,6 +54,7 @@ function DisplayItems(props: any) {
 			sx={{ overflow: 'auto', width: { xs: '100%', lg: '50%' } }}
 		>
 			<h1>Items</h1>
+
 			<TextField
 				label="Search For a Item"
 				variant="outlined"
@@ -47,14 +62,42 @@ function DisplayItems(props: any) {
 				onChange={(data) => {
 					setSearch(data.target.value);
 				}}
-				fullWidth
+				sx={{ width: { xs: '70%', lg: '80%' } }}
 			/>
+			<FormControl sx={{ width: { xs: '30%', lg: '20%' } }}>
+				<InputLabel id="demo-simple-select-label">Filter</InputLabel>
+				<Select
+					labelId="demo-simple-select-label"
+					id="demo-simple-select"
+					value={filter}
+					label="Filter"
+					onChange={changeFilter}
+				>
+					<MenuItem value={''}>None</MenuItem>
+					<MenuItem value={'STARTER'}>Starter</MenuItem>
+					<MenuItem value={'BOOTS'}>Boots</MenuItem>
+					<MenuItem value={'BASIC'}>Basic</MenuItem>
+					<MenuItem value={'EPIC'}>Epic</MenuItem>
+					<MenuItem value={'LEGENDARY'}>Legendary</MenuItem>
+					<MenuItem value={'MYTHIC'}>Mythic</MenuItem>
+				</Select>
+			</FormControl>
 			<Grid container spacing={2}>
 				{sortedData
 					.filter((feed: any) => {
-						if (search === '') {
+						if (search === '' && filter === '') {
 							return feed;
-						} else if (feed.name.toLowerCase().includes(search.toLowerCase())) {
+						} else if (
+							filter === '' &&
+							feed.name.toLowerCase().includes(search.toLowerCase())
+						) {
+							return feed;
+						} else if (search === '' && feed.type === filter) {
+							return feed;
+						} else if (
+							feed.name.toLowerCase().includes(search.toLowerCase()) &&
+							feed.type === filter
+						) {
 							return feed;
 						}
 					})
