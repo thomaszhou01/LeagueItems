@@ -30,7 +30,8 @@ function IndividualStat(props: any) {
 				/>
 				<Typography>
 					{props.stat +
-						(props.championStats === undefined ? 0 : props.championStats)}
+						(props.championStats === undefined ? 0 : props.championStats) +
+						(props.modifier === undefined ? '' : props.modifier)}
 				</Typography>
 				{props.altStat !== undefined && (
 					<Typography>/{props.altStat}</Typography>
@@ -66,9 +67,12 @@ function IndividualStat(props: any) {
 					<Typography sx={{ p: 1 }}>{props.statName}</Typography>
 					<Typography sx={{ p: 1 }}>
 						{props.stat +
-							(props.championStats === undefined ? 0 : props.championStats)}
+							(props.championStats === undefined ? 0 : props.championStats) +
+							(props.modifier === undefined ? '' : props.modifier)}
 					</Typography>
-					<Typography sx={{ p: 1 }}>{props.altStat}</Typography>
+					{props.altStat !== undefined && (
+						<Typography sx={{ p: 1 }}>{props.altStat}</Typography>
+					)}
 				</Stack>
 			</Popover>
 		</Grid>

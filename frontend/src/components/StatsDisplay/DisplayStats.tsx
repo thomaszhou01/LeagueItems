@@ -119,12 +119,14 @@ function DisplayStats(props: any) {
 				stat={props.stats['armorPen']}
 				altStat={props.stats['lethality']}
 				statName={'Armor Penetration & Lethality'}
+				modifier={'%'}
 			></IndividualStat>
 			<IndividualStat
 				image={magicPen}
 				stat={props.stats['flatMagicPen']}
 				altStat={props.stats['percentMagicPen']}
-				statName={'Flat and Percent Magic Penetration'}
+				statName={'Percent and Flat Magic Penetration'}
+				modifier={'%'}
 			></IndividualStat>
 			<IndividualStat
 				image={as}
@@ -150,11 +152,13 @@ function DisplayStats(props: any) {
 				image={lifeSteal}
 				stat={props.stats['lifeSteal']}
 				statName={'Lifesteal'}
+				modifier={'%'}
 			></IndividualStat>
 			<IndividualStat
 				image={omnivamp}
 				stat={props.stats['omnivamp']}
 				statName={'Omnivamp'}
+				modifier={'%'}
 			></IndividualStat>
 			<IndividualStat
 				image={crit}
@@ -165,6 +169,7 @@ function DisplayStats(props: any) {
 					props.level,
 				)}
 				statName={'Critical Strike Chance'}
+				modifier={'%'}
 			></IndividualStat>
 			<IndividualStat
 				image={ms}
@@ -182,6 +187,7 @@ function DisplayStats(props: any) {
 				image={tenacity}
 				stat={props.stats['tenacity']}
 				statName={'Tenacity'}
+				modifier={'%'}
 			></IndividualStat>
 			<Grid item xs={12}>
 				<BarStats
