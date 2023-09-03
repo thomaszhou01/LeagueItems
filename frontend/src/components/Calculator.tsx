@@ -206,7 +206,6 @@ function Calculator(props: any) {
 		setSnackbar(false);
 	}
 
-	// can make width of Box fluid or width={'50vw'} with direction row
 	return (
 		<Stack sx={{ flexDirection: { xs: 'column', lg: 'row' } }}>
 			<Box
