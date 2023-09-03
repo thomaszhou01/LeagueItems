@@ -104,7 +104,14 @@ function Calculator(props: any) {
 		ms: 0,
 	});
 
-	const [itemPassives, setItemPassives] = useState<Array<any>>([]);
+	const [itemPassives, setItemPassives] = useState<Array<any>>([
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+	]);
 	function addItem(
 		stats: any,
 		itemImgUrl: string,
@@ -141,18 +148,16 @@ function Calculator(props: any) {
 				}
 				setTotalCost(totalCost + parseInt(goldTotalCost));
 				setItemPassives((prevPassives) => {
-					return [...prevPassives, passives];
+					prevPassives[slot] = passives;
+					return prevPassives;
 				});
+				setSnackbar(() => {
+					return true;
+				});
+				setSnackbarMessage(name + ' Added');
 				break;
 			}
 		}
-		setSnackbar(() => {
-			if (itemPassives.length != 6) {
-				return true;
-			}
-			return false;
-		});
-		setSnackbarMessage(name + ' Added');
 	}
 
 	function removeItem(index: number, cost: string) {
@@ -161,7 +166,8 @@ function Calculator(props: any) {
 			itemStats[key as keyof Stats] -= data[key as keyof Stats];
 		}
 		setItemPassives((prevPassives) => {
-			return prevPassives.filter((itemVal) => itemVal.id !== imageAlt[index]);
+			prevPassives[index] = null;
+			return prevPassives;
 		});
 
 		setItemData((prevData) => {

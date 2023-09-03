@@ -17,6 +17,9 @@ function DisplayPassives(props: any) {
 				<Box minHeight={'10vh'} maxHeight={'50vh'} padding={2}>
 					<Typography variant="h4">Unique Passives:</Typography>
 					{props.itemPassives.map((item: any) => {
+						if (item == null) {
+							return null;
+						}
 						return (
 							<Box padding={1}>
 								<Divider />
